@@ -7,6 +7,7 @@ export class AppConstants {
   //api details
   public static BASE_API_ENDPOINT_IDENTITY = 'http://localhost:31713/api';
   public static BASE_API_ENDPOINT_AUDIT_LOG = 'http://localhost:31713/api';
+
   static getHeaderStringIDENTITY(): Headers {
     let headerStringIdentity = {
       'Content-Type': 'application/json',
@@ -25,13 +26,6 @@ export class AppConstants {
     return new Headers(headerStringIdentity);
   };
 
-  //common titles
-  static TEXT_ERROR = "Error";
-  static TEXT_ERROR_API = "Api or Internet Connection is not available";
-  static TEXT_CONFIRM_TITLE = "Are you sure?";
-  static TEXT_CONFIRM_MESSAGE = "You won't be able to revert this";
-  static TEXT_CONFIRM_DELETE = "Yes, delete it";
-
   static defaultModalconfig = {
     //backdrop: false,
     ignoreBackdropClick: true,
@@ -42,15 +36,15 @@ export class AppConstants {
 
 export class CommonMethods {
 
-  static handleApiResponse(apiType: ApiType, response: any) {
+  static handleApiResponse(apiType: ApiType, response: any, successTitle: string = "", errorTitle: string = "") {
     if (response == null) {
-      CommonMethods.showMessage("'" + apiType + "' returns null response", AlertType.Error);
+      CommonMethods.writeLogs(AlertType.Error, "'" + apiType + "' returns null response");
     }
     else if (!response.IsSuccess) {
-      CommonMethods.showMessage(CommonMethods.getErrorStringFromListOfErrors(response.ErrorMessages), AlertType.Error);
+      CommonMethods.showMessage(CommonMethods.getErrorStringFromListOfErrors(response.ErrorMessages), AlertType.Error, errorTitle);
     }
     else if (apiType == ApiType.Delete || apiType == ApiType.Post) {
-      CommonMethods.showMessage(response.DisplayMessage == null ? "" : response.DisplayMessage);
+      CommonMethods.showMessage(response.DisplayMessage == null ? "" : response.DisplayMessage, AlertType.Success, successTitle);
     }
   }
 
@@ -80,9 +74,13 @@ export class CommonMethods {
     $('#' + datatableId).DataTable();
   }
 
-  static showMessage(message: string, alertType: AlertType = AlertType.Success) {
+  static showMessage(message: string, alertType: AlertType, title: string) {
     let icon = alertType == AlertType.Success ? 'success' : alertType == AlertType.Error ? 'error' : 'warning';
-    swal.fire(alertType.toString(), message, icon as SweetAlertType);
+    swal.fire(
+      title == "" ? alertType.toString() : title,
+      message,
+      icon as SweetAlertType
+    );
   }
 
   static getDeepCopy(data: any): any {
@@ -111,8 +109,7 @@ export enum LogAction {
 export enum AlertType {
   Success = "Success",
   Error = "Error",
-  Warning = "Warning",
-  Info = "Info"
+  Warning = "Warning"
 }
 
 export enum ApiType {

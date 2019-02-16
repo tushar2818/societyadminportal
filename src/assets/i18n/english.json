@@ -1,0 +1,36 @@
+{
+  "Title": {
+    "Roles": "Roles",
+    "RoleDetails": "Role Details"
+  },
+  "Button": {
+    "Add": "Add",
+    "Refresh": "Refresh",
+    "Delete": "Delete",
+    "Edit": "Edit",
+    "Close": "Close",
+    "Cancel": "Cancel"
+  },
+  "Messages": {
+    "Error": "Error",
+    "ApiError": "Api or Internet Connection is not available",
+    "AreYouSure": "Are you sure ?",
+    "YouWantBeAbleToRevert": "You won't be able to revert this",
+    "IsRequired": "is required"
+  },
+  "Key": {
+    "No": "No.",
+    "Role": "Role",
+    "SelectLanguage": "Select Language"
+  },
+  "TableHeaders": {
+    "Role": "Role",
+    "NormalizedRole": "Normalized Role",
+    "ConcurrencyStamp": "Concurrency Stamp"
+  },
+  "AlertTitle": {
+    "Success": "Success",
+    "Error": "Error",
+    "Warning": "Warning"
+  }
+}

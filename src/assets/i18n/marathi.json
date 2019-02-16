@@ -1,0 +1,36 @@
+{
+  "Title": {
+    "Roles": "रोल",
+    "RoleDetails": "रोल माहिती"
+  },
+  "Button": {
+    "Add": "नवीन",
+    "Refresh": "रीफ्रेश",
+    "Delete": "काढा",
+    "Edit": "एडीट",
+    "Close": "बंद",
+    "Cancel": "रद्द"
+  },
+  "Messages": {
+    "Error": "इर्रोर",
+    "ApiError": "इंटरनेट उपलब्ध नाही",
+    "AreYouSure": "खात्री",
+    "YouWantBeAbleToRevert": "तुम्ही परत नाही मिळवू शकणार",
+    "IsRequired": "भरावे लागेल"
+  },
+  "Key": {
+    "No": "No.",
+    "Role": "रोल",
+    "SelectLanguage": "भाषा निवडा"
+  },
+  "TableHeaders": {
+    "Role": "रोल",
+    "NormalizedRole": "Normalized रोल",
+    "ConcurrencyStamp": "Concurrency Stamp"
+  },
+  "AlertTitle": {
+    "Success": "Success",
+    "Error": "Error",
+    "Warning": "Warning"
+  }
+}
