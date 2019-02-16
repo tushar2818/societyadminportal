@@ -1,10 +1,10 @@
 <div class="card border-primary">
 
   <div class="card-header bg-primary custom-card-header">
-    <i class="fa fa-align-justify"></i> Roles
+    <i class="fa fa-align-justify"></i> {{ 'Title.Roles' | translate }}
     <div class="float-right">
-      <button class="icon-button" (click)="onOpenPopup(template)"><i class="fa fa-plus-square-o fa-lg"></i> Add</button>
-      <button class="icon-button" (click)="refresh()"><i class="fa fa-refresh fa-lg"></i> Refresh</button>
+      <button class="icon-button" (click)="onOpenPopup(template)"><i class="fa fa-plus-square-o fa-lg"></i> {{ 'Button.Add' | translate }}</button>
+      <button class="icon-button" (click)="refresh()"><i class="fa fa-refresh fa-lg"></i> {{ 'Button.Refresh' | translate }}</button>
     </div>
   </div>
 
@@ -12,7 +12,7 @@
     <table id="datatables" class="table table-striped table-bordered hover" style="width:100%">
       <thead>
         <tr>
-          <th>No.</th>
+          <th>{{ 'Key.No' | translate }}</th>
           <th *ngFor="let header of modelHeaders; let i = index">{{header}}</th>
         </tr>
       </thead>
@@ -33,11 +33,11 @@
   <form #f="ngForm" novalidate (ngSubmit)="onSave(f.value, f.valid)" class="was-validated">
 
     <div class="card-header bg-primary custom-card-header">
-      <i class="fa fa-info-circle"></i> Role Details
+      <i class="fa fa-info-circle"></i> {{ 'Title.RoleDetails' | translate }}
       <div class="float-right">
-        <button type="button" class="icon-button" (click)="onEdit()" [hidden]="model.Id== null "><i class="fa fa-edit fa-lg"></i> Edit</button>
-        <button type="button" class="icon-button" (click)="onDelete()"><i class="fa fa-trash fa-lg"></i> Delete</button>
-        <button type="button" class="icon-button" (click)="onCancel()"><i class="fa fa-remove fa-lg"></i> Close</button>
+        <button type="button" class="icon-button" (click)="onEdit()" [hidden]="model.Id== null"><i class="fa fa-edit fa-lg"></i> {{ 'Button.Edit' | translate }}</button>
+        <button type="button" class="icon-button" (click)="onDelete()" [hidden]="model.Id== null"><i class="fa fa-trash fa-lg"></i> {{ 'Button.Delete' | translate }}</button>
+        <button type="button" class="icon-button" (click)="onCancel()"><i class="fa fa-remove fa-lg"></i> {{ 'Button.Close' | translate }}</button>
       </div>
     </div>
 
@@ -45,11 +45,11 @@
 
       <div class="col-md-12">
         <div class="form-group">
-          <label class="form-col-form-label">Role</label>
+          <label class="form-col-form-label">{{ 'Key.Role' | translate }}</label>
           <input type="text" class="form-control" id="Name" name="Name" [(ngModel)]="model.Name" required
                  [readonly]="!isModelEditable">
-          <div class="invalid-feedback" [hidden]="!f.submitted">
-            Role is required
+          <div class="invalid-feedback" [hidden]="model.Id == null && !f.submitted">
+            {{ 'Key.Role' | translate }}  {{ 'Messages.IsRequired' | translate }}
           </div>
         </div>
       </div>
@@ -57,7 +57,7 @@
     </div>
 
     <div class="modal-footer">
-      <button type="submit" class="btn btn-primary" [disabled]="f.invalid">Save</button>
+      <button type="submit" class="btn btn-primary" >Save</button>
       <button type="button" class="btn btn-secondary" (click)="onCancel()">Close</button>
     </div>
 
