@@ -13,6 +13,28 @@ export interface NavData {
 
 export const navItems: NavData[] = [
   {
+    name: "User Managements",
+    url: '/usermanagements',
+    icon: 'icon-puzzle',
+    children: [
+      {
+        name: 'Roles',
+        url: '/usermanagements/roles',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'Users',
+        url: '/base/carousels',
+        icon: 'icon-puzzle'
+      }, 
+      {
+        name: 'User Role Mapping',
+        url: '/base/collapses',
+        icon: 'icon-puzzle'
+      } 
+    ]
+  },
+  {
     name: 'Dashboard',
     url: '/dashboard',
     icon: 'icon-speedometer',
