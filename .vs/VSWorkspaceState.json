@@ -1,7 +1,13 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\containers\\default-layout",
+    "\\src\\app\\shared",
+    "\\src\\app\\views",
+    "\\src\\app\\views\\roles"
   ],
-  "SelectedNode": "\\.gitignore",
+  "SelectedNode": "\\src\\typings.d.ts",
   "PreviewInSolutionExplorer": false
 }
