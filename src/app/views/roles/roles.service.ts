@@ -3,41 +3,39 @@ import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable, Subject } from 'rxjs';
 import { AppConstants, CommonMethods } from '../../shared/appconstants';
+import { AppService } from '../../app.service';
 
 @Injectable()
 export class RolesService {
-  constructor(private _http: Http) { }
+  constructor(private _http: Http,
+    private appService: AppService) { }
 
+  //get all records
   getall(): Observable<any> {
-    let options = new RequestOptions({ headers: AppConstants.getHeaderStringIDENTITY() });
-    return this._http.get(AppConstants.BASE_API_ENDPOINT_IDENTITY + "/roles/getall", options).pipe(
+    return this._http.get(AppConstants.BASE_API_ENDPOINT_IDENTITY + "/roles/getall", this.appService.getRequestOptionsIdentity()).pipe(
       map((response: Response) => <any>response.json()),
-      catchError(this.handleErrorPromise));
+      catchError(this.appService.handleErrorPromise));
   }
 
+  //get record by id
   getById(Id): Observable<any> {
-    let options = new RequestOptions({ headers: AppConstants.getHeaderStringIDENTITY() });
-    return this._http.get(AppConstants.BASE_API_ENDPOINT_IDENTITY + "/roles/getbyid/" + Id, options).pipe(
+    return this._http.get(AppConstants.BASE_API_ENDPOINT_IDENTITY + "/roles/getbyid/" + Id, this.appService.getRequestOptionsIdentity()).pipe(
       map((response: Response) => <any>response.json()),
-      catchError(this.handleErrorPromise));
+      catchError(this.appService.handleErrorPromise));
   }
 
-  post(model): Observable<any> {
-    let options = new RequestOptions({ headers: AppConstants.getHeaderStringIDENTITY() });
+  //save/update
+  save(model): Observable<any> {
     let body = JSON.stringify(model);
-    return this._http.post(AppConstants.BASE_API_ENDPOINT_IDENTITY + "/roles/saveupdate", body, options).pipe(
+    return this._http.post(AppConstants.BASE_API_ENDPOINT_IDENTITY + "/roles/saveupdate", body, this.appService.getRequestOptionsIdentity()).pipe(
       map((response: Response) => <any>response.json()),
-      catchError(this.handleErrorPromise));
+      catchError(this.appService.handleErrorPromise));
   }
 
+  //delete record
   delete(id): Observable<any> {
-    let options = new RequestOptions({ headers: AppConstants.getHeaderStringIDENTITY() });
-    return this._http.delete(AppConstants.BASE_API_ENDPOINT_IDENTITY + "/roles/" + id, options).pipe(
+    return this._http.delete(AppConstants.BASE_API_ENDPOINT_IDENTITY + "/roles/" + id, this.appService.getRequestOptionsIdentity()).pipe(
       map((response: Response) => <any>response.json()),
-      catchError(this.handleErrorPromise));
-  }
-
-  protected handleErrorPromise(error: any): Promise<void> {
-    return Promise.reject(JSON.parse(error));
-  }
+      catchError(this.appService.handleErrorPromise));
+  } 
 }

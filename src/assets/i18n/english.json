@@ -1,36 +1,50 @@
 {
-  "Title": {
+  "PageTitles": {
     "Roles": "Roles",
-    "RoleDetails": "Role Details"
+    "Role": "Role"
   },
-  "Button": {
+  "ActionButton": {
     "Add": "Add",
     "Refresh": "Refresh",
     "Delete": "Delete",
     "Edit": "Edit",
     "Close": "Close",
-    "Cancel": "Cancel"
-  },
-  "Messages": {
-    "Error": "Error",
-    "ApiError": "Api or Internet Connection is not available",
-    "AreYouSure": "Are you sure ?",
-    "YouWantBeAbleToRevert": "You won't be able to revert this",
-    "IsRequired": "is required"
-  },
-  "Key": {
-    "No": "No.",
-    "Role": "Role",
-    "SelectLanguage": "Select Language"
+    "Cancel": "Cancel",
+    "Save": "Save"
   },
   "TableHeaders": {
     "Role": "Role",
     "NormalizedRole": "Normalized Role",
     "ConcurrencyStamp": "Concurrency Stamp"
   },
+  "Keys": {
+    "No": "No.",
+    "Role": "Role",
+    "SelectLanguage": "Select Language"
+  },
+  "Messages": {
+    "Error": "Error",
+    "ApiError": "Server or Internet Connection is not available",
+    "AreYouSure": "Are you sure ?",
+    "YouWantBeAbleToRevert": "You won't be able to revert this",
+    "IsRequired": "is required",
+    "InvalidForm": "Invalid Forms",
+    "MessageAdded": "added",
+    "MessageUpdated": "updated",
+    "MessageDeleted": "deleted"
+  },
   "AlertTitle": {
     "Success": "Success",
     "Error": "Error",
-    "Warning": "Warning"
+    "Warning": "Warning",
+    "Saved": "Save",
+    "Updated": "Update",
+    "Deleted": "Delete"
+  },
+  "MessageFormatter": {
+    "add": "Add New {{Value1}}",
+    "edit": "{{Value1}} Details",
+    "YouWantDeleteToThis": "Do you want to delete this {{Value1}} ? You won't be able to revert this.",
+    "AddUpdateDeleteSuccessfull": "{{Value1}} has been {{Value2}} successfully"
   }
 }

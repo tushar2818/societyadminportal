@@ -1,12 +1,11 @@
 import { Component, TemplateRef } from '@angular/core';
-import { AppConstants, AlertType, CommonMethods, ApiType, LogAction, LogType } from '../../shared/appconstants';
+import { AppConstants, AlertType, CommonMethods, ApiType, LogAction, LogType, ActionMode } from '../../shared/appconstants';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { RolesService } from './roles.service';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { AppService } from '../../app.service';
 import swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
+import { RolesService } from './roles.service';
 
 @Component({
   templateUrl: 'roles.component.html'
@@ -20,156 +19,148 @@ export class RolesComponent {
   modellist: any = [];
   modelOld: any;
   isModelEditable: boolean;
+  mode: ActionMode = ActionMode.add;
+  logType: LogType = LogType.Role;
+  uniqueKey: any = "Id";
+  pageTitleKey: any = "PageTitles.Role";
 
+  //constructor 
   constructor(
-    private _service: RolesService,
-    private spinner: NgxSpinnerService,
+    private service: RolesService,
     private modalService: BsModalService,
-    private appService: AppService 
-  ) {
+    private appService: AppService) {
   }
 
+  //initilization
   ngOnInit() {
     try {
       this.modelHeaders = [this.appService.getTranslate("TableHeaders.Role"),
-        this.appService.getTranslate("TableHeaders.NormalizedRole"),
-        this.appService.getTranslate("TableHeaders.ConcurrencyStamp")];
+      this.appService.getTranslate("TableHeaders.NormalizedRole"),
+      this.appService.getTranslate("TableHeaders.ConcurrencyStamp")];
       this.refresh();
     } catch (e) {
-      this.appService.handleExceptions(e); 
+      this.appService.handleExceptions(e);
     }
   }
 
+  //refresh data
   refresh() {
-    this.spinner.show();
+    this.appService.showLoading(true);
     this.modellist = [];
-    this.onCancel(true);
-    this.isModelEditable = true;
-    this.subscription=this._service.getall().subscribe(response => {
+    this.onCancelPopup();
+    this.isModelEditable = false;
+    this.subscription = this.service.getall().subscribe(response => {
       try {
-        CommonMethods.handleApiResponse(ApiType.GetAll, response);
+        this.appService.handleApiResponse(response, this.logType, LogAction.GetAll);
         if (response != null && response.IsSuccess) {
           this.modellist = response.Result;
           CommonMethods.applyDataTableStyles();
-          this.keepAuditLogs(LogAction.GetAll);
         }
-        this.spinner.hide();
+        this.appService.showLoading(false);
       } catch (e) {
-        this.appService.handleExceptions(e); 
+        this.appService.handleExceptions(e);
       }
-    },
-      error => {
-        this.appService.handleApiError();
-      });
+    }, error => { this.appService.handleApiError(error); });
   }
 
+  //open popup of save/update
   onOpenPopup(template: TemplateRef<any>, model: any = null) {
     this.modelOld = {};
     this.model = {};
     if (model == null) {
+      this.mode = ActionMode.add;
+      this.isModelEditable = true;
       this.modalRef = this.modalService.show(template, AppConstants.defaultModalconfig);
       CommonMethods.addDefaultModalSettings();
     }
     else {
-      this.spinner.show();
-      this.subscription =this._service.getById(model.Id).subscribe(response => {
+      this.mode = ActionMode.edit;
+      this.appService.showLoading(true);
+      this.subscription = this.service.getById(model[this.uniqueKey]).subscribe(response => {
         try {
-          CommonMethods.handleApiResponse(ApiType.GetById, response);
-          if (response!=null && response.IsSuccess) {
+          if (response != null && response.IsSuccess) {
             this.isModelEditable = false;
             this.model = response.Result;
             this.modelOld = CommonMethods.getDeepCopy(this.model);
             this.modalRef = this.modalService.show(template, AppConstants.defaultModalconfig);
             CommonMethods.addDefaultModalSettings();
-            this.keepAuditLogs(LogAction.GetById, this.model);
           }
-          this.spinner.hide();
+          this.appService.handleApiResponse(response, this.logType, LogAction.GetById, this.pageTitleKey,
+            this.model);
+          this.appService.showLoading(false);
         } catch (e) {
-          this.appService.handleExceptions(e); 
+          this.onCancelPopup();
+          this.appService.handleExceptions(e);
         }
-      },
-        error => {
-          this.appService.handleApiError(); 
-        });
+      }, error => {
+        this.onCancelPopup();
+        this.appService.handleApiError(error);
+      });
     }
   }
 
-  onSave(model: any, IsVallid: boolean) {
-    if (IsVallid) {
-      this.spinner.show();
-      this.subscription =this._service.post(this.model).subscribe(response => {
+  //save/update model
+  onSave(isValid: boolean) {
+    if (isValid) {
+      this.appService.showLoading(true);
+      this.subscription = this.service.save(this.model).subscribe(response => {
         try {
-          CommonMethods.handleApiResponse(ApiType.Post, response);
+          let auditLogAction = this.mode == ActionMode.add ? LogAction.Add : LogAction.Update;
+          this.appService.handleApiResponse(response, this.logType, auditLogAction, this.pageTitleKey,
+            this.model, this.modelOld, true);
           if (response != null && response.IsSuccess) {
             this.refresh();
-            this.keepAuditLogs((this.model.Id == null || this.model.Id == "" || this.model.Id == "0") ? LogAction.Add :
-              LogAction.Update, this.model, this.modelOld);
           }
           else {
-            this.spinner.hide();
+            this.appService.showLoading(false);
           }
         } catch (e) {
-          this.appService.handleExceptions(e); 
+          this.appService.handleExceptions(e);
         }
-      },
-        error => {
-          this.appService.handleApiError(); 
-        });
+      }, error => { this.appService.handleApiError(error); });
+    }
+    else {
+      CommonMethods.writeLogs(AlertType.Warning, "Invallid form");
     }
   }
 
+  //delete confirmation
   onDelete() {
-    swal.fire({
-      title: this.appService.getTranslate('Messages.AreYouSure'),
-      text: this.appService.getTranslate('Messages.YouWantBeAbleToRevert'),
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonText: this.appService.getTranslate('Button.Delete'),
-      cancelButtonText: this.appService.getTranslate('Button.Cancel'),
-      confirmButtonClass: 'btn btn-primary',
-      cancelButtonClass: 'btn btn-secondary',
-      allowOutsideClick: false,
-      animation: false
-    }).then((result) => {
-      if (result.value) {
-        this.perFormDelete();
+    swal.fire(this.appService.getDeleteConfirmationSetting(this.pageTitleKey)).then(function (result) {
+      if (result) {
+        this.performDelete();
       }
-    }, function (dismiss) { });
+    }.bind(this), function (dismiss) {
+    });
   }
 
-  perFormDelete() {
-    this.spinner.show();
-    this.subscription =this._service.delete(this.model.Id).subscribe(response => {
+  //delete model
+  performDelete() {
+    this.appService.showLoading(true);
+    this.subscription = this.service.delete(this.model[this.uniqueKey]).subscribe(response => {
       try {
-        CommonMethods.handleApiResponse(ApiType.Delete, response);
+        this.appService.handleApiResponse(response, this.logType, LogAction.Delete, this.pageTitleKey, this.model, null, true);
         if (response != null && response.IsSuccess) {
           this.refresh();
-          this.keepAuditLogs(LogAction.Delete, this.model);
         }
         else {
-          this.spinner.hide();
+          this.appService.showLoading(false);
         }
       } catch (e) {
-        this.appService.handleExceptions(e); 
+        this.appService.handleExceptions(e);
       }
-    },
-      error => {
-        this.appService.handleApiError(); 
-      });
-  }
-
-  keepAuditLogs(logAction: LogAction, data: any = "", oldData: any = "") {
-    this.appService.keepAuditLog(LogType.Role, logAction, data, oldData);
+    }, error => { this.appService.handleApiError(error); });
   }
 
   onEdit() {
     this.isModelEditable = true;
   }
 
-  onCancel(forceExecute: boolean) {
+  //cancel save/update popup
+  onCancelPopup(forceExecute: boolean = true) {
     try {
       if (this.modalRef != null)
-      this.modalRef.hide();
+        this.modalRef.hide();
     } catch (e) {
       CommonMethods.writeLogs(AlertType.Error, e);
     }

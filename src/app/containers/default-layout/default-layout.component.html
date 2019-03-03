@@ -23,7 +23,7 @@
     <li>
       <select class="form-control" id="selectedLanguage" name="selectedLanguage" [(ngModel)]="appService.selectedLanguage"
               (ngModelChange)="appService.changeLanguage()">
-        <option value="0" disabled>{{ 'Key.SelectLanguage' | translate }}</option>
+        <option value="0" disabled>{{ 'Keys.SelectLanguage' | translate }}</option>
         <option *ngFor="let lang of appService.availableLanguages; let i = index" value="{{lang.Value}}">{{lang.Key}}</option>
       </select>
     </li>
