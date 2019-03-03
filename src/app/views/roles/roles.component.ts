@@ -34,9 +34,8 @@ export class RolesComponent {
   //initilization
   ngOnInit() {
     try {
-      this.modelHeaders = [this.appService.getTranslate("TableHeaders.Role"),
-      this.appService.getTranslate("TableHeaders.NormalizedRole"),
-      this.appService.getTranslate("TableHeaders.ConcurrencyStamp")];
+      this.modelHeaders = ["TableHeaders.Role", "TableHeaders.NormalizedRole", "TableHeaders.ConcurrencyStamp"];
+
       this.refresh();
     } catch (e) {
       this.appService.handleExceptions(e);
