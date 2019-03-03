@@ -165,4 +165,5 @@ export class RolesComponent {
       CommonMethods.writeLogs(AlertType.Error, e);
     }
   }
+
 }
