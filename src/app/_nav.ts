@@ -13,6 +13,18 @@ export interface NavData {
 
 export const navItems: NavData[] = [
   {
+    name: 'Masters',
+    url: '/master',
+    icon: 'icon-puzzle',
+    children: [
+      {
+        name: 'City Master',
+        url: '/master/city',
+        icon: 'icon-puzzle'
+      } 
+    ]
+  },
+  {
     name: "User Managements",
     url: '/usermanagements',
     icon: 'icon-puzzle',

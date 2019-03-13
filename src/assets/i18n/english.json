@@ -1,7 +1,9 @@
 {
   "PageTitles": {
     "Roles": "Roles",
-    "Role": "Role"
+    "Role": "Role",
+    "Citys": "Citys",
+    "City": "City"
   },
   "ActionButton": {
     "Add": "Add",
@@ -19,8 +21,20 @@
   },
   "Keys": {
     "No": "No.",
+    "IsDeleted": "Deleted",
+    "IsActive": "Active",
+    "SelectLanguage": "Select Language",
+    "CityType": "City Type",
     "Role": "Role",
-    "SelectLanguage": "Select Language"
+    "StateId": "State",
+    "DistrictId": "District",
+    "TalukaId": "Taluka",
+    "CityName": "City Name",
+    "Latitude": "Latitude",
+    "MalePopulation": "Male Population",
+    "PinCode": "PinCode",
+    "Longitude": "Longitude",
+    "FemalePopulation": "Female Population"
   },
   "Messages": {
     "Error": "Error",
@@ -45,6 +59,8 @@
     "add": "Add New {{Value1}}",
     "edit": "{{Value1}} Details",
     "YouWantDeleteToThis": "Do you want to delete this {{Value1}} ? You won't be able to revert this.",
-    "AddUpdateDeleteSuccessfull": "{{Value1}} has been {{Value2}} successfully"
+    "AddUpdateDeleteSuccessfull": "{{Value1}} has been {{Value2}} successfully",
+    "IsRequired": "{{Value1}} is required",
+    "SelectDropdown": "Select {{Value1}}"
   }
 }

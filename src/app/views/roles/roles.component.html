@@ -49,7 +49,7 @@
           <input type="text" class="form-control" id="Name" name="Name" [(ngModel)]="model.Name" required
                  [readonly]="!isModelEditable">
           <div class="invalid-feedback" [hidden]="model.Id == null && !f.submitted">
-            {{ 'Keys.Role' | translate }}  {{ 'Messages.IsRequired' | translate }}
+            {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.Role' | translate } }}
           </div>
         </div>
       </div>
