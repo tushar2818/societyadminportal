@@ -2,11 +2,21 @@ import swal from 'sweetalert2';
 import { SweetAlertType } from 'sweetalert2';
 import { Headers } from '@angular/http';
 
+export enum CityType {
+  State = 'State',
+  District = 'District',
+  Taluka = 'Taluka',
+  Village = 'Village',
+  Area = 'Area',
+  Address = 'Address',
+  CityType = 'CityType'
+}
+
 export class AppConstants {
 
   //api details
-  public static BASE_API_ENDPOINT_IDENTITY = 'http://localhost:31713/api';
-  public static BASE_API_ENDPOINT_AUDIT_LOG = 'http://localhost:31713/api';
+  public static BASE_API_ENDPOINT_IDENTITY = 'http://localhost:31713/api/';
+  public static BASE_API_ENDPOINT_CITY = 'http://localhost:31497/api/';
 
   static getHeaderStringIDENTITY(): Headers {
     let headerStringIdentity = {
@@ -17,11 +27,36 @@ export class AppConstants {
     return new Headers(headerStringIdentity);
   };
 
+  public static getHeaderStringCity(): Headers {
+    let headerStringCity = {
+      'Content-Type': 'application/json',
+      'ApplicationId': 1,
+      'ApplicationToken': 2
+    };
+    return new Headers(headerStringCity);
+  };
+
   static defaultModalconfig = {
     //backdrop: false,
     ignoreBackdropClick: true,
     keyboard: false
   };
+
+  static cityTypes = [
+    { Id: 1, Type: 'State', cityType: CityType.State },
+    { Id: 2, Type: 'District', cityType: CityType.District },
+    { Id: 3, Type: 'Taluka', cityType: CityType.Taluka },
+    { Id: 4, Type: 'Village', cityType: CityType.Village },
+    { Id: 5, Type: 'Area', cityType: CityType.Area },
+    { Id: 6, Type: 'Address', cityType: CityType.Address }
+  ];
+
+  static GetCityTypeIdFromUniqueKey(uniqueKey: string): number {
+    let type = AppConstants.cityTypes.filter(function (o) { return o.cityType == uniqueKey; })[0];
+    if (type != null)
+      return type.Id;
+    return -1;
+  }
 
 }
 
@@ -44,10 +79,10 @@ export class CommonMethods {
   }
 
   //get error string from array of strings
-  static getErrorStringFromListOfErrors(ErrorMessages: any) {
-    if (ErrorMessages == null)
+  static getErrorStringFromListOfErrors(response: any) {
+    if (response.ErrorMessages == null)
       return "";
-    let errors = ErrorMessages.map(data => data.Message);
+    let errors = response.ErrorMessages.map(data => data.Message);
     return errors.toString();
   }
 
@@ -66,9 +101,14 @@ export class CommonMethods {
 
   //apply data table style
   static applyDataTableStyles(datatableId: string = 'datatables') {
+    try {
+      $('#' + datatableId).DataTable().clear();
+      $('#' + datatableId).DataTable().destroy();
+    } catch (e) {
+    }
     setTimeout(CommonMethods.AfterDataPopulated, 50, datatableId);
   }
-  static AfterDataPopulated(datatableId: string) {
+  static AfterDataPopulated(datatableId: string) {    
     $('#' + datatableId).DataTable();
   }
 
@@ -100,7 +140,8 @@ export enum ActionMode {
 }
 
 export enum LogType {
-  Role = "Role"
+  Role = "Role",
+  City = "City"
 }
 
 export enum LogAction {

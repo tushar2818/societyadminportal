@@ -14,11 +14,13 @@ export class AppService {
   public selectedLanguage: string = "english";
   public UserInfo: any = null;//logged in user information
   public requestOptionsIndentity: any = null;//http options for identity service
+  public requestOptionsCity: any = null;//http options for city service
 
   constructor(private _http: Http,
     private translate: TranslateService,
     private spinner: NgxSpinnerService) {
     this.requestOptionsIndentity = new RequestOptions({ headers: AppConstants.getHeaderStringIDENTITY() });
+    this.requestOptionsCity = new RequestOptions({ headers: AppConstants.getHeaderStringCity() });
   }
 
   //get transaltion from key
@@ -32,9 +34,14 @@ export class AppService {
     return sResult;
   }
 
-  //get http request options
+  //get http request options for identoty
   public getRequestOptionsIdentity(): RequestOptions {
     return this.requestOptionsIndentity;
+  }
+
+  //get http request options for city service
+  public getRequestOptionsCity(): RequestOptions {
+    return this.requestOptionsCity;
   }
 
   //handle exceptions

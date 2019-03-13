@@ -51,6 +51,10 @@ export const routes: Routes = [
     },
     children: [
       {
+        path: 'master',
+        loadChildren: './views/city/city.module#CityModule'
+      },
+      {
         path: 'usermanagements',
         loadChildren: './views/roles/roles.module#RolesModule'
       },
