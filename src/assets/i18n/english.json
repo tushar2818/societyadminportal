@@ -3,7 +3,9 @@
     "Roles": "Roles",
     "Role": "Role",
     "Citys": "Citys",
-    "City": "City"
+    "City": "City",
+    "Companies": "Companies",
+    "Company": "Company"
   },
   "ActionButton": {
     "Add": "Add",

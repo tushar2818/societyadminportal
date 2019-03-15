@@ -17,6 +17,11 @@ export const navItems: NavData[] = [
     url: '/master',
     icon: 'icon-puzzle',
     children: [
+        {
+            name: 'Comapny Master',
+            url: '/master/company',
+            icon: 'icon-puzzle'
+        },
       {
         name: 'City Master',
         url: '/master/city',

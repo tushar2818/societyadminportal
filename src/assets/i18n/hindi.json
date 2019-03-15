@@ -1,7 +1,11 @@
 {
   "PageTitles": {
     "Roles": "रोल्स",
-    "Role": "रोल"
+    "Role": "रोल",
+    "Citys": "Citys",
+    "City": "City",
+    "Companies": "Companies",
+    "Company": "Company"
   },
   "ActionButton": {
     "Add": "ऍड",
