@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CompanyComponent } from './company.component';
+import { CompanyMasterComponent } from './companymaster.component';
 const routes: Routes = [
   {
     path: '',
     data: {
-      title: 'Company'
+      title: 'Company Master'
     },
     children: [
       {
-        path: 'company',
-        component: CompanyComponent,
+        path: 'companymaster',
+        component: CompanyMasterComponent,
         data: {
-          title: 'Company'
+          title: 'Company Master'
         }
       },
     ]
@@ -23,4 +23,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CompanyRoutingModule { }
+export class CompanyMasterRoutingModule { }

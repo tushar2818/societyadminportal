@@ -13,14 +13,10 @@ export class AppService {
   public availableLanguages: any = [{ Key: 'English', Value: 'english' }, { Key: 'हिंदी', Value: 'hindi' }, { Key: 'मराठी', Value: 'marathi' }];
   public selectedLanguage: string = "english";
   public UserInfo: any = null;//logged in user information
-  public requestOptionsIndentity: any = null;//http options for identity service
-  public requestOptionsCity: any = null;//http options for city service
 
   constructor(private _http: Http,
     private translate: TranslateService,
     private spinner: NgxSpinnerService) {
-    this.requestOptionsIndentity = new RequestOptions({ headers: AppConstants.getHeaderStringIDENTITY() });
-    this.requestOptionsCity = new RequestOptions({ headers: AppConstants.getHeaderStringCity() });
   }
 
   //get transaltion from key
@@ -35,13 +31,34 @@ export class AppService {
   }
 
   //get http request options for identoty
+  public getRequestOptionsSociety(): RequestOptions {
+    let headerStringCity = {
+      'Content-Type': 'application/json',
+      'ApplicationId': 1,
+      'ApplicationToken': 2,
+      'CompanyId': 3
+    };
+    return new RequestOptions({ headers: new Headers(headerStringCity) })
+  }
+
+  //get http request options for identoty
   public getRequestOptionsIdentity(): RequestOptions {
-    return this.requestOptionsIndentity;
+    let headerStringCity = {
+      'Content-Type': 'application/json',
+      'ApplicationId': 1,
+      'ApplicationToken': 2 
+    };
+    return new RequestOptions({ headers: new Headers(headerStringCity) })
   }
 
   //get http request options for city service
   public getRequestOptionsCity(): RequestOptions {
-    return this.requestOptionsCity;
+    let headerStringCity = {
+      'Content-Type': 'application/json',
+      'ApplicationId': 1,
+      'ApplicationToken': 2 
+    };
+    return new RequestOptions({ headers: new Headers(headerStringCity) })
   }
 
   //handle exceptions

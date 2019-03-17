@@ -3,7 +3,6 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\containers\\default-layout",
     "\\src\\app\\shared",
     "\\src\\app\\views",
     "\\src\\app\\views\\city",
@@ -11,6 +10,6 @@
     "\\src\\assets",
     "\\src\\assets\\i18n"
   ],
-  "SelectedNode": "\\src\\assets\\i18n\\english.json",
+  "SelectedNode": "\\src\\app\\views\\roles\\roles.component.ts",
   "PreviewInSolutionExplorer": false
 }

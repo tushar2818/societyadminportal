@@ -1,7 +1,7 @@
 <div class="card border-primary">
 
   <div class="card-header bg-primary custom-card-header">
-    <i class="fa fa-align-justify"></i> {{ 'PageTitles.Companies' | translate }}
+    <i class="fa fa-align-justify"></i> {{ 'PageTitles.FlatTypeMasters' | translate }}
     <div class="float-right">
       <button class="icon-button" (click)="onOpenPopup(template)"><i class="fa fa-plus-square-o fa-lg"></i> {{ 'ActionButton.Add' | translate }}</button>
       <button class="icon-button" (click)="refresh()"><i class="fa fa-refresh fa-lg"></i> {{ 'ActionButton.Refresh' | translate }}</button>
@@ -19,9 +19,7 @@
       <tbody>
         <tr *ngFor="let row of modellist; let i = index">
           <td>{{ (i+1) }}</td>
-          <td class="custom-hyperlink" (click)="onOpenPopup(template,row)"><a>{{row.Name}}</a> </td>
-          <td>{{row.NormalizedName}}</td>
-          <td>{{row.ConcurrencyStamp}}</td>
+          <td class="custom-hyperlink" (click)="onOpenPopup(template,row)"><a>{{row.FlatType}}</a> </td> 
         </tr>
       </tbody>
     </table>
@@ -45,11 +43,11 @@
 
       <div class="col-md-12">
         <div class="form-group">
-          <label class="form-col-form-label">{{ 'Keys.Role' | translate }}</label>
-          <input type="text" class="form-control" id="Name" name="Name" [(ngModel)]="model.Name" required
-                 [readonly]="!isModelEditable">
-          <div class="invalid-feedback" [hidden]="model.Id == null && !f.submitted">
-            {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.Role' | translate } }}
+          <label class="form-col-form-label" for="FlatType">{{ 'Keys.FlatType' | translate }}</label>
+          <input type="text" class="form-control" id="FlatType" name="FlatType"
+                 [(ngModel)]="model.FlatType" required [readonly]="!isModelEditable">
+          <div class="invalid-feedback" [hidden]="model[uniqueKey] == null && !f.submitted">
+            {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.FlatType' | translate } }}
           </div>
         </div>
       </div>
@@ -60,7 +58,6 @@
       <button type="button" class="btn btn-secondary" (click)="onCancelPopup()">{{ 'ActionButton.Cancel' | translate }}</button>
       <button type="submit" [disabled]="f.invalid || !isModelEditable"  class="btn btn-primary">{{ 'ActionButton.Save' | translate }}</button>
     </div>
-
 
   </form>
 </ng-template>

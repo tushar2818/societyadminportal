@@ -1,0 +1,63 @@
+<div class="card border-primary">
+
+  <div class="card-header bg-primary custom-card-header">
+    <i class="fa fa-align-justify"></i> {{ 'PageTitles.DesignationMasters' | translate }}
+    <div class="float-right">
+      <button class="icon-button" (click)="onOpenPopup(template)"><i class="fa fa-plus-square-o fa-lg"></i> {{ 'ActionButton.Add' | translate }}</button>
+      <button class="icon-button" (click)="refresh()"><i class="fa fa-refresh fa-lg"></i> {{ 'ActionButton.Refresh' | translate }}</button>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <table id="datatables" class="table table-striped table-bordered hover" style="width:100%">
+      <thead>
+        <tr>
+          <th>{{ 'Keys.No' | translate }}</th>
+          <th *ngFor="let header of modelHeaders; let i = index">{{header | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of modellist; let i = index">
+          <td>{{ (i+1) }}</td>
+          <td class="custom-hyperlink" (click)="onOpenPopup(template,row)"><a>{{row.Designation}}</a> </td> 
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<ng-template #template>
+  <form #f="ngForm" novalidate (ngSubmit)="onSave(f.valid)" class="was-validated">
+
+    <div class="card-header bg-primary custom-card-header">
+      <i class="fa fa-info-circle"></i> {{ 'MessageFormatter.'+mode | translate : { Value1: pageTitleKey | translate } }}
+      <div class="float-right">
+        <button type="button" class="icon-button" (click)="onEdit()" [hidden]="mode=='add'"><i class="fa fa-edit fa-lg"></i> {{ 'ActionButton.Edit' | translate }}</button>
+        <button type="button" class="icon-button" (click)="onDelete()" [hidden]="mode=='add'"><i class="fa fa-trash fa-lg"></i> {{ 'ActionButton.Delete' | translate }}</button>
+        <button type="button" class="icon-button" (click)="onCancelPopup()"><i class="fa fa-remove fa-lg"></i></button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="form-col-form-label" for="Designation">{{ 'Keys.Designation' | translate }}</label>
+          <input type="text" class="form-control" id="Designation" name="Designation"
+                 [(ngModel)]="model.Designation" required [readonly]="!isModelEditable">
+          <div class="invalid-feedback" [hidden]="model[uniqueKey] == null && !f.submitted">
+            {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.Designation' | translate } }}
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="onCancelPopup()">{{ 'ActionButton.Cancel' | translate }}</button>
+      <button type="submit" [disabled]="f.invalid || !isModelEditable"  class="btn btn-primary">{{ 'ActionButton.Save' | translate }}</button>
+    </div>
+
+  </form>
+</ng-template>

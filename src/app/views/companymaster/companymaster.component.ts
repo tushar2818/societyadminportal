@@ -5,13 +5,13 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { AppService } from '../../app.service';
 import swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
-import { CompanyService } from './company.service';
+import { CompanyMasterService } from './companymaster.service';
 
 @Component({
-  templateUrl: 'company.component.html'
+  templateUrl: 'companymaster.component.html'
 })
 
-export class CompanyComponent {
+export class CompanyMasterComponent {
   subscription: Subscription;
   modalRef: BsModalRef;
   modelHeaders: any = [];
@@ -20,13 +20,13 @@ export class CompanyComponent {
   modelOld: any;
   isModelEditable: boolean;
   mode: ActionMode = ActionMode.add;
-  logType: LogType = LogType.Role;
-  uniqueKey: any = "Id";
-  pageTitleKey: any = "PageTitles.Company";
+  logType: LogType = LogType.FloorMaster;
+  uniqueKey: any = "CompanyMasterID";
+  pageTitleKey: any = "PageTitles.CompanyMaster";
 
   //constructor 
   constructor(
-    private service: CompanyService,
+    private service: CompanyMasterService,
     private modalService: BsModalService,
     private appService: AppService) {
   }
@@ -34,8 +34,8 @@ export class CompanyComponent {
   //initilization
   ngOnInit() {
     try {
-      this.modelHeaders = ["TableHeaders.Role", "TableHeaders.NormalizedRole", "TableHeaders.ConcurrencyStamp"];
-
+      this.modelHeaders = ["TableHeaders.CompanyName", "TableHeaders.Email", "TableHeaders.Mobile",
+        "TableHeaders.Address"];
       this.refresh();
     } catch (e) {
       this.appService.handleExceptions(e);
