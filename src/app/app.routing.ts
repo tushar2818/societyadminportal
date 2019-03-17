@@ -51,10 +51,6 @@ export const routes: Routes = [
     },
     children: [
       {
-          path: 'master',
-          loadChildren: './views/company/company.module#CompanyModule'
-      },
-      {
         path: 'master',
         loadChildren: './views/city/city.module#CityModule'
       },
