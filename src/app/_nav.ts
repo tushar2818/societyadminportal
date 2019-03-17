@@ -26,6 +26,61 @@ export const navItems: NavData[] = [
         name: 'City Master',
         url: '/master/city',
         icon: 'icon-puzzle'
+      },
+      {
+        name: 'Company Master',
+        url: '/master/companymaster',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'Designation Master',
+        url: '/master/designationmaster',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'Employee Master',
+        url: '/master/employeemaster',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'Flat Master',
+        url: '/master/flatmaster',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'Flat Owner History',
+        url: '/master/flatownerhistory',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'Flat Type Master',
+        url: '/master/flattypemaster',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'Floor Master',
+        url: '/master/floormaster',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'Project Employee',
+        url: '/master/projectemployee',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'Project Master',
+        url: '/master/projectmaster',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'Society Master',
+        url: '/master/societymaster',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'Wing Master',
+        url: '/master/wingmaster',
+        icon: 'icon-puzzle'
       } 
     ]
   },

@@ -4,8 +4,28 @@
     "Role": "Role",
     "Citys": "Citys",
     "City": "City",
-    "Companies": "Companies",
-    "Company": "Company"
+    "CompanyMasters": "Company Masters",
+    "CompanyMaster": "Company Master",
+    "DesignationMasters": "Designation Masters",
+    "DesignationMaster": "Designation Master",
+    "EmployeeMasters": "Employee Masters",
+    "EmployeeMaster": "Employee Master",
+    "FlatMasters": "Flat Masters",
+    "FlatMaster": "Flat Master",
+    "FlatOwnerHistorys": "Flat Owner Historys",
+    "FlatOwnerHistory": "Flat Owner History",
+    "FlatTypeMasters": "Flat Type Masters",
+    "FlatTypeMaster": "Flat Type Master",
+    "FloorMasters": "Floor Masters",
+    "FloorMaster": "Floor Master",
+    "ProjectEmployees": "Project Employees",
+    "ProjectEmployee": "Project Employee",
+    "ProjectMasters": "Project Masters",
+    "ProjectMaster": "Project Master",
+    "SocietyMasters": "Society Masters",
+    "SocietyMaster": "Society Master",
+    "WingMasters": "Wing Masters",
+    "WingMaster": "Wing Master"
   },
   "ActionButton": {
     "Add": "Add",
@@ -19,13 +39,25 @@
   "TableHeaders": {
     "Role": "Role",
     "NormalizedRole": "Normalized Role",
-    "ConcurrencyStamp": "Concurrency Stamp"
+    "ConcurrencyStamp": "Concurrency Stamp",
+
+    "CompanyName": "Company Name",
+    "Email": "Email",
+    "Mobile": "Mobile",
+    "Address": "Address",
+
+    "Designation": "Designation",
+
+    "FloorName": "Floor Name",
+
+    "FlatType": "Flat Type"
   },
   "Keys": {
     "No": "No.",
     "IsDeleted": "Deleted",
     "IsActive": "Active",
     "SelectLanguage": "Select Language",
+
     "CityType": "City Type",
     "Role": "Role",
     "StateId": "State",
@@ -36,7 +68,23 @@
     "MalePopulation": "Male Population",
     "PinCode": "PinCode",
     "Longitude": "Longitude",
-    "FemalePopulation": "Female Population"
+    "FemalePopulation": "Female Population",
+
+    "FloorName": "Floor Name",
+
+    "CompanyName": "Company Name",
+    "Email": "Email",
+    "LandLine": "LandLine",
+    "Mobile": "Mobile",
+    "CIN": "CIN",
+    "PAN": "PAN",
+    "GST": "GST",
+    "Address": "Address",
+
+    "Designation": "Designation",
+
+    "FlatType": "Flat Type"
+
   },
   "Messages": {
     "Error": "Error",

@@ -59,6 +59,22 @@ export const routes: Routes = [
         loadChildren: './views/city/city.module#CityModule'
       },
       {
+        path: 'master',
+        loadChildren: './views/companymaster/companymaster.module#CompanyMasterModule'
+      },
+      {
+        path: 'master',
+        loadChildren: './views/designationmaster/designationmaster.module#DesignationMasterModule'
+      },
+      {
+        path: 'master',
+        loadChildren: './views/flattypemaster/flattypemaster.module#FlatTypeMasterModule'
+      },  
+      {
+        path: 'master',
+        loadChildren: './views/floormaster/floormaster.module#FloorMasterModule'
+      },  
+      {
         path: 'usermanagements',
         loadChildren: './views/roles/roles.module#RolesModule'
       },

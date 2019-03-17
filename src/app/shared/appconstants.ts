@@ -1,6 +1,5 @@
 import swal from 'sweetalert2';
 import { SweetAlertType } from 'sweetalert2';
-import { Headers } from '@angular/http';
 
 export enum CityType {
   State = 'State',
@@ -17,24 +16,8 @@ export class AppConstants {
   //api details
   public static BASE_API_ENDPOINT_IDENTITY = 'http://localhost:31713/api/';
   public static BASE_API_ENDPOINT_CITY = 'http://localhost:31497/api/';
+  public static BASE_API_ENDPOINT_SOCIETY = 'http://localhost:44354/api/';
 
-  static getHeaderStringIDENTITY(): Headers {
-    let headerStringIdentity = {
-      'Content-Type': 'application/json',
-      'ApplicationId': 1,
-      'ApplicationToken': 2
-    };
-    return new Headers(headerStringIdentity);
-  };
-
-  public static getHeaderStringCity(): Headers {
-    let headerStringCity = {
-      'Content-Type': 'application/json',
-      'ApplicationId': 1,
-      'ApplicationToken': 2
-    };
-    return new Headers(headerStringCity);
-  };
 
   static defaultModalconfig = {
     //backdrop: false,
@@ -141,7 +124,18 @@ export enum ActionMode {
 
 export enum LogType {
   Role = "Role",
-  City = "City"
+  City = "City",
+  CompanyMaster = "Company Master",
+  DesignationMaster = "Designation Master",
+  EmployeeMaster = "Employee Master",
+  FlatMaster = "Flat Master",
+  FlatOwnerHistory = "Flat Owner History",
+  FlatTypeMaster = "Flat Type Master",
+  FloorMaster = "Floor Master",
+  ProjectEmployee = "Project Employee",
+  ProjectMaster = "Project Master",
+  SocietyMaster = "Society Master",
+  WingMaster = "Wing Master"
 }
 
 export enum LogAction {

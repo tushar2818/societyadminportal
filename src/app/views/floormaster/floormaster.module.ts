@@ -2,22 +2,22 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { RolesComponent } from './roles.component';
-import { RolesRoutingModule } from './roles.routing.module';
-import { RolesService } from './roles.service';
+import { FloorMasterComponent } from './floormaster.component';
+import { FloorMasterRoutingModule } from './floormaster.routing.module';
+import { FloorMasterService } from './floormaster.service';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    RolesRoutingModule,
+    FloorMasterRoutingModule,
     TranslateModule
   ],
   declarations: [
-    RolesComponent,
+    FloorMasterComponent,
   ],
   providers: [
-    RolesService
+    FloorMasterService
   ]
 })
-export class RolesModule { }
+export class FloorMasterModule { }
