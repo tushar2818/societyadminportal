@@ -8,12 +8,15 @@ import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
+import { LoginPageComponent } from './views/loginpage/loginpage.component';
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
+    canActivate: [AuthGuard]
   },
   {
     path: '404',
@@ -37,6 +40,13 @@ export const routes: Routes = [
     }
   },
   {
+    path: 'loginpage',
+    component: LoginPageComponent,
+    data: {
+      title: 'Login Page'
+    }
+  },
+  {
     path: 'register',
     component: RegisterComponent,
     data: {
@@ -49,14 +59,23 @@ export const routes: Routes = [
     data: {
       title: 'Home'
     },
+  canActivate: [AuthGuard],
     children: [
+      //{
+      //  path: 'master',
+      //  loadChildren: './views/city/city.module#CityModule'
+      //},
+      //{
+      //  path: 'master',
+      //  loadChildren: './views/companymaster/companymaster.module#CompanyMasterModule'
+      //},
       {
         path: 'master',
-        loadChildren: './views/city/city.module#CityModule'
+        loadChildren: './views/commontabletype/commontabletype.module#CommonTableTypeModule'
       },
       {
         path: 'master',
-        loadChildren: './views/companymaster/companymaster.module#CompanyMasterModule'
+        loadChildren: './views/designationtype/designationtype.module#DesignationTypeModule'
       },
       {
         path: 'master',
@@ -64,15 +83,23 @@ export const routes: Routes = [
       },
       {
         path: 'master',
-        loadChildren: './views/flattypemaster/flattypemaster.module#FlatTypeMasterModule'
-      },  
-      {
-        path: 'master',
-        loadChildren: './views/floormaster/floormaster.module#FloorMasterModule'
-      },  
+        loadChildren: './views/designationtypemapping/designationtypemapping.module#DesignationTypeMappingModule'
+      },
+      //{
+      //  path: 'master',
+      //  loadChildren: './views/flattypemaster/flattypemaster.module#FlatTypeMasterModule'
+      //},  
+      //{
+      //  path: 'master',
+      //  loadChildren: './views/floormaster/floormaster.module#FloorMasterModule'
+      //},  
       {
         path: 'usermanagements',
         loadChildren: './views/roles/roles.module#RolesModule'
+      },
+      {
+        path: 'usermanagements',
+        loadChildren: './views/clientmaster/clientmaster.module#ClientMasterModule'
       },
       {
         path: 'base',

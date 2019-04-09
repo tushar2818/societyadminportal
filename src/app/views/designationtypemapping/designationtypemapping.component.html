@@ -1,0 +1,108 @@
+<div class="card border-primary">
+
+  <div class="card-header bg-primary custom-card-header">
+    <i class="fa fa-align-justify"></i> {{ 'PageTitles.DesignationTypeMappings' | translate }}
+    <div class="float-right">
+      <button class="icon-button" (click)="getAllLookups()"><i class="fa fa-refresh fa-lg"></i> {{ 'ActionButton.Refresh' | translate }}</button>
+    </div>
+  </div>
+
+  <div class="card-body">
+
+    <div class="row">
+
+      <!--select form type dropdon-->
+      <div class="form-group row col-md-9">
+
+        <label class="col-md-3 col-form-label" for="select1">
+          {{ 'MessageFormatter.SelectDropdown' | translate : { Value1: 'Keys.DesignationType' | translate } }}
+        </label>
+
+        <div class="col-md-6">
+          <select class="form-control" id="selectedDesignationType" name="selectedDesignationType" [(ngModel)]="selectedDesignationType"
+                  (ngModelChange)="refreshDesignationMapping()">
+            <option value="0" disabled>{{ 'MessageFormatter.SelectDropdown' | translate : { Value1: 'Keys.DesignationType' | translate } }}</option>
+            <option *ngFor="let item of allDesignationTypes; let i = index" value="{{item.DesignationTypeID}}">{{item.DesignationTypeValue}}</option>
+          </select>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-sm-2">
+      </div>
+
+      <!--non selected designations-->
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-header">
+            <strong>{{ 'Keys.NonSelectedDesignations' | translate }}</strong>
+          </div>
+          <div class="card-body">
+            <div class="form-group row">
+              <select id="nonSelectedDesignations" name="multiple-select" class="form-control" size="10" multiple
+                      (change)="addButtonDisabled=false;removeButtonDisabled=true;">
+                <option *ngFor="let item of nonSelectedDesignations; let i = index"
+                        value="{{item.DesignationMasterID}}" [selected]="item.selected">
+                  {{item.DesignationValue}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--add or remove button-->
+      <div class="col-sm-2">
+        <br />
+        <div class="row">
+          <button type="submit" class="btn btn-sm btn-success" [disabled]="addButtonDisabled"
+                  (click)="addedOrRemoved();">
+            <i class="fa fa-dot-circle-o"></i> {{ 'ActionButton.Add' | translate }}
+          </button>
+        </div>
+        <br />
+        <div class="row">
+          <button type="reset" class="btn btn-sm btn-danger" [disabled]="removeButtonDisabled"
+                  (click)="addedOrRemoved();">
+            <i class="fa fa-ban"></i> {{ 'ActionButton.Remove' | translate }}
+          </button>
+        </div>
+      </div>
+
+      <!--selected designations-->
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-header">
+            <strong>{{ 'Keys.SelectedDesignations' | translate }}</strong>
+          </div>
+          <div class="card-body">
+            <div class="form-group row">
+              <select id="selectedDesignations" name="multiple-select" class="form-control" size="10" multiple
+                      (change)="addButtonDisabled=true;removeButtonDisabled=false;">
+                <option *ngFor="let item of selectedDesignations; let i = index"
+                        value="{{item.DesignationMasterID}}">
+                  {{item.DesignationValue}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-sm-2">
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="onSaveConfirmation();" >{{ 'ActionButton.Save' | translate }}</button>
+    </div>
+
+  </div>
+
+</div>
+
+ 

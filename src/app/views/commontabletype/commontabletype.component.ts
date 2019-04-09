@@ -5,13 +5,13 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { GlobalService } from '../../shared/global.service';
 import swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
-import { FloorMasterService } from './floormaster.service';
+import { CommonTableTypeService } from './commontabletype.service';
 
 @Component({
-  templateUrl: 'floormaster.component.html'
+  templateUrl: 'commontabletype.component.html'
 })
 
-export class FloorMasterComponent {
+export class CommonTableTypeComponent {
   subscription: Subscription;
   modalRef: BsModalRef;
   modelHeaders: any = [];
@@ -20,13 +20,13 @@ export class FloorMasterComponent {
   modelOld: any;
   isModelEditable: boolean;
   mode: ActionMode = ActionMode.add;
-  logType: LogType = LogType.FloorMaster;
-  uniqueKey: any = "FloorMasterID";
-  pageTitleKey: any = "PageTitles.FloorMaster";
+  logType: LogType = LogType.DesignationType;
+  uniqueKey: any = "CommonTableTypeID";
+  pageTitleKey: any = "PageTitles.CommonTableType";
 
   //constructor 
   constructor(
-    private service: FloorMasterService,
+    private service: CommonTableTypeService,
     private modalService: BsModalService,
     private globalService: GlobalService) {
   }
@@ -34,8 +34,7 @@ export class FloorMasterComponent {
   //initilization
   ngOnInit() {
     try {
-      this.modelHeaders = ["TableHeaders.FloorName"];
-
+      this.modelHeaders = ["TableHeaders.CommonTableTypeKey", "TableHeaders.CommonTableTypeValue"];
       this.refresh();
     } catch (e) {
       this.globalService.handleExceptions(e);

@@ -1,0 +1,246 @@
+<div class="card border-primary">
+
+  <div class="card-header bg-primary custom-card-header">
+    <i class="fa fa-align-justify"></i> {{ 'PageTitles.ClientMasters' | translate }}
+    <div class="float-right">
+      <button class="icon-button" (click)="onOpenPopup(template)"><i class="fa fa-plus-square-o fa-lg"></i> {{ 'ActionButton.Add' | translate }}</button>
+      <button class="icon-button" (click)="refresh()"><i class="fa fa-refresh fa-lg"></i> {{ 'ActionButton.Refresh' | translate }}</button>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <table id="datatables" class="table table-striped table-bordered hover" style="width:100%">
+      <thead>
+        <tr>
+          <th>{{ 'Keys.No' | translate }}</th>
+          <th *ngFor="let header of modelHeaders; let i = index">{{header | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of modellist; let i = index">
+          <td>{{ (i+1) }}</td>
+          <td class="custom-hyperlink" (click)="onOpenPopup(template,row)"><a>{{row.ClientName}}</a> </td>
+          <td>{{row.Email}}</td>
+          <td>{{row.Mobile}}</td>
+          <td>{{row.VallidFrom * 1000 | date: globalService.dateFormatPipe}}</td>
+          <td>{{row.VallidTill * 1000 | date: globalService.dateFormatPipe}}</td>
+          <td>{{row.CompanyLimit}}</td>
+          <td>{{row.ProjectLimit}}</td>
+          <td>{{row.IsActive}}</td>
+          <td>{{row.IsDeleted}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<ng-template #template>
+  <form #f="ngForm" novalidate (ngSubmit)="onSaveConfirm(f.valid)" class="was-validated">
+
+    <div class="card-header bg-primary custom-card-header">
+      <i class="fa fa-info-circle"></i> {{ 'MessageFormatter.'+mode | translate : { Value1: pageTitleKey | translate } }}
+      <div class="float-right">
+        <button type="button" class="icon-button" (click)="onEdit()" [hidden]="mode=='add'"><i class="fa fa-edit fa-lg"></i> {{ 'ActionButton.Edit' | translate }}</button>
+        <button type="button" class="icon-button" (click)="onDelete()" [hidden]="mode=='add'"><i class="fa fa-trash fa-lg"></i> {{ 'ActionButton.Delete' | translate }}</button>
+        <button type="button" class="icon-button" (click)="onCancelPopup()"><i class="fa fa-remove fa-lg"></i></button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="row col-md-12">
+
+        <div class="col-md-6">
+
+          <div class="form-group">
+            <label class="form-col-form-label" for="ClientName">{{ 'Keys.ClientName' | translate }}</label>
+            <textarea id="ClientName" name="ClientName" [(ngModel)]="model.ClientName"
+                      required [readonly]="!isModelEditable" class="form-control"></textarea>
+            <div class="invalid-feedback" [hidden]="!f.submitted">
+              {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.ClientName' | translate } }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-col-form-label" for="FirstName">{{ 'Keys.FirstName' | translate }}</label>
+            <input type="text" class="form-control" id="FirstName" name="FirstName"
+                   [(ngModel)]="model.FirstName"
+                   required [readonly]="!isModelEditable">
+            <div class="invalid-feedback" [hidden]="!f.submitted">
+              {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.FirstName' | translate } }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-col-form-label" for="Mobile">{{ 'Keys.Mobile' | translate }}</label>
+            <input type="number" class="form-control" id="Mobile" name="Mobile"
+                   [(ngModel)]="model.Mobile"
+                   required [readonly]="!isModelEditable">
+            <div class="invalid-feedback" [hidden]="!f.submitted">
+              {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.Mobile' | translate } }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-col-form-label" for="VallidFrom">{{ 'Keys.VallidFrom' | translate }}</label>
+            <input autocomplete="off" type="text" class="form-control"
+                   bsDatepicker id="VallidFrom" name="VallidFrom"
+                   required [(ngModel)]="model.VallidFrom" [readonly]="!isModelEditable"
+                   [bsConfig]="{dateInputFormat: globalService.dateFormat }">
+            <div class="invalid-feedback" [hidden]="!f.submitted">
+              {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.VallidFrom' | translate } }}
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="form-col-form-label" for="CompanyLimit">{{ 'Keys.CompanyLimit' | translate }}</label>
+            <input type="number" class="form-control" id="CompanyLimit" name="CompanyLimit"
+                   required [(ngModel)]="model.CompanyLimit" [readonly]="!isModelEditable" />
+            <div class="invalid-feedback" [hidden]="!f.submitted">
+              {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.CompanyLimit' | translate } }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-col-form-label" for="BuildingLimit">{{ 'Keys.BuildingLimit' | translate }}</label>
+            <input type="number" class="form-control" id="BuildingLimit" name="BuildingLimit"
+                   required [(ngModel)]="model.BuildingLimit" [readonly]="!isModelEditable" />
+            <div class="invalid-feedback" [hidden]="!f.submitted">
+              {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.BuildingLimit' | translate } }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-col-form-label" for="FlatLimit">{{ 'Keys.FlatLimit' | translate }}</label>
+            <input type="number" class="form-control" id="FlatLimit" name="FlatLimit"
+                   required [(ngModel)]="model.FlatLimit" [readonly]="!isModelEditable" />
+            <div class="invalid-feedback" [hidden]="!f.submitted">
+              {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.FlatLimit' | translate } }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-col-form-label" for="ContactPerson">{{ 'Keys.ContactPerson' | translate }}</label>
+            <input type="text" class="form-control" id="ContactPerson" name="ContactPerson"
+                   required [(ngModel)]="model.ContactPerson" [readonly]="!isModelEditable" />
+            <div class="invalid-feedback" [hidden]="!f.submitted">
+              {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.ContactPerson' | translate } }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-col-form-label" for="IsActive">{{ 'Keys.Active' | translate }}</label>
+            <input type="checkbox" class="form-control" id="IsActive" name="IsActive"
+                   [(ngModel)]="model.IsActive" [readonly]="!isModelEditable" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-col-form-label" for="ClientDetails">{{ 'Keys.ClientDetails' | translate }}</label>
+            <textarea id="ClientDetails" name="ClientDetails" [(ngModel)]="model.ClientDetails"
+                      required [readonly]="!isModelEditable" class="form-control"></textarea>
+            <div class="invalid-feedback" [hidden]="!f.submitted">
+              {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.ClientDetails' | translate } }}
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+          <div class="form-group">
+            <label class="form-col-form-label" for="Address">{{ 'Keys.Address' | translate }}</label>
+            <textarea id="Address" name="Address" [(ngModel)]="model.Address"
+                      required [readonly]="!isModelEditable" class="form-control"></textarea>
+            <div class="invalid-feedback" [hidden]="!f.submitted">
+              {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.Address' | translate } }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-col-form-label" for="LastName">{{ 'Keys.LastName' | translate }}</label>
+            <input type="text" class="form-control" id="LastName" name="LastName"
+                   [(ngModel)]="model.LastName"
+                   required [readonly]="!isModelEditable">
+            <div class="invalid-feedback" [hidden]="!f.submitted">
+              {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.LastName' | translate } }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-col-form-label" for="Email">{{ 'Keys.Email' | translate }}</label>
+            <input type="email" class="form-control" id="Email" name="Email"
+                   [(ngModel)]="model.Email"
+                   required [readonly]="!isModelEditable">
+            <div class="invalid-feedback" [hidden]="!f.submitted">
+              {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.Email' | translate } }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-col-form-label" for="VallidTill">{{ 'Keys.VallidTill' | translate }}</label>
+            <input autocomplete="off" type="text" class="form-control"
+                   bsDatepicker id="VallidTill" name="VallidTill"
+                   required [(ngModel)]="model.VallidTill" [readonly]="!isModelEditable"
+                   [minDate]="model.VallidFrom">
+            <div class="invalid-feedback" [hidden]="!f.submitted">
+              {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.VallidTill' | translate } }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-col-form-label" for="ProjectLimit">{{ 'Keys.ProjectLimit' | translate }}</label>
+            <input type="number" class="form-control" id="ProjectLimit" name="ProjectLimit"
+                   required [(ngModel)]="model.ProjectLimit" [readonly]="!isModelEditable" />
+            <div class="invalid-feedback" [hidden]="!f.submitted">
+              {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.ProjectLimit' | translate } }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-col-form-label" for="WingLimit">{{ 'Keys.WingLimit' | translate }}</label>
+            <input type="number" class="form-control" id="WingLimit" name="WingLimit"
+                   required [(ngModel)]="model.WingLimit" [readonly]="!isModelEditable" />
+            <div class="invalid-feedback" [hidden]="!f.submitted">
+              {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.WingLimit' | translate } }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-col-form-label" for="Website">{{ 'Keys.Website' | translate }}</label>
+            <input type="url" class="form-control" id="Website" name="Website"
+                   required [(ngModel)]="model.Website" [readonly]="!isModelEditable" />
+            <div class="invalid-feedback" [hidden]="!f.submitted">
+              {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.Website' | translate } }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-col-form-label" for="ContactPersonMobile">{{ 'Keys.ContactPersonMobile' | translate }}</label>
+            <input type="number" class="form-control" id="ContactPersonMobile" name="ContactPersonMobile"
+                   required [(ngModel)]="model.ContactPersonMobile" [readonly]="!isModelEditable" />
+            <div class="invalid-feedback" [hidden]="!f.submitted">
+              {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.ContactPersonMobile' | translate } }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-col-form-label" for="IsDeleted">{{ 'Keys.Deleted' | translate }}</label>
+            <input type="checkbox" class="form-control" id="IsDeleted" name="IsDeleted"
+                   [(ngModel)]="model.IsDeleted" [readonly]="!isModelEditable" />
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="onCancelPopup()">{{ 'ActionButton.Cancel' | translate }}</button>
+      <button type="submit" [disabled]="f.invalid || !isModelEditable"  class="btn btn-primary">{{ 'ActionButton.Save' | translate }}</button>
+    </div>
+
+  </form>
+</ng-template>

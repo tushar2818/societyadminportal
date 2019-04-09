@@ -8,7 +8,6 @@
             [navbarBrandMinimized]="{src: 'assets/img/brand/sygnet.svg', width: 30, height: 30, alt: 'CoreUI Logo'}"
             [sidebarToggler]="'lg'"
             [asideMenuToggler]="'lg'">
-
   <ul class="nav navbar-nav d-md-down-none">
     <li class="nav-item px-3">
       <a class="nav-link" href="#">Dashboard</a>
@@ -73,8 +72,10 @@
   </app-sidebar>
   <!-- Main content -->
   <main class="main">
-    <!--<ol class="breadcrumb">
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb">
       <app-breadcrumb></app-breadcrumb>
+      <!-- Breadcrumb Menu-->
       <li class="breadcrumb-menu d-md-down-none">
         <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
           <a class="btn" href="#"><i class="icon-speech"></i></a>
@@ -82,8 +83,7 @@
           <a class="btn" href="#"><i class="icon-settings"></i> &nbsp;Settings</a>
         </div>
       </li>
-    </ol>-->
-    <br />
+    </ol>
     <div class="container-fluid">
       <router-outlet></router-outlet>
     </div><!-- /.container-fluid -->

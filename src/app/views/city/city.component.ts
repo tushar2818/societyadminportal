@@ -2,10 +2,10 @@ import { Component, TemplateRef } from '@angular/core';
 import { AppConstants, AlertType, CommonMethods, CityType, LogAction, LogType, ActionMode } from '../../shared/appconstants';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { AppService } from '../../app.service';
 import swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
 import { CityService } from './city.service';
+import { GlobalService } from '../../shared/global.service';
 
 @Component({
   templateUrl: 'city.component.html'
@@ -32,7 +32,7 @@ export class CityComponent {
   constructor(
     private service: CityService,
     private modalService: BsModalService,
-    private appService: AppService) {
+    private globalService: GlobalService) {
   }
 
   //initilization
@@ -42,7 +42,7 @@ export class CityComponent {
       this.cityTypes = AppConstants.cityTypes;
       this.refresh();
     } catch (e) {
-      this.appService.handleExceptions(e);
+      this.globalService.handleExceptions(e);
     }
   }
 
@@ -58,21 +58,21 @@ export class CityComponent {
 
   //refresh data
   refresh() {
-    this.appService.showLoading(true);
+    this.globalService.showLoading(true);
     this.modellist = [];
     this.onCancelPopup();
     this.subscription = this.service.getall().subscribe(response => {
       try {
-        this.appService.handleApiResponse(response, this.logType, LogAction.GetAll);
+        this.globalService.handleApiResponse(response, this.logType, LogAction.GetAll);
         if (response != null && response.IsSuccess) {
           this.modellist = response.Result;
           CommonMethods.applyDataTableStyles();
         }
-        this.appService.showLoading(false);
+        this.globalService.showLoading(false);
       } catch (e) {
-        this.appService.handleExceptions(e);
+        this.globalService.handleExceptions(e);
       }
-    }, error => { this.appService.handleApiError(error); });
+    }, error => { this.globalService.handleApiError(error); });
   }
 
   //open popup of save/update
@@ -88,7 +88,7 @@ export class CityComponent {
     else {
       this.mode = ActionMode.edit;
       this.isModelEditable = false;
-      this.appService.showLoading(true);
+      this.globalService.showLoading(true);
       this.subscription = this.service.getById(model[this.uniqueKey], false).subscribe(response => {
         try {
           if (response != null && response.IsSuccess) {
@@ -100,16 +100,16 @@ export class CityComponent {
             this.modalRef = this.modalService.show(template, AppConstants.defaultModalconfig);
             CommonMethods.addDefaultModalSettings();
           }
-          this.appService.handleApiResponse(response, this.logType, LogAction.GetById, this.pageTitleKey,
+          this.globalService.handleApiResponse(response, this.logType, LogAction.GetById, this.pageTitleKey,
             this.model);
-          this.appService.showLoading(false);
+          this.globalService.showLoading(false);
         } catch (e) {
           this.onCancelPopup();
-          this.appService.handleExceptions(e);
+          this.globalService.handleExceptions(e);
         }
       }, error => {
         this.onCancelPopup();
-        this.appService.handleApiError(error);
+        this.globalService.handleApiError(error);
       });
     }
   }
@@ -117,22 +117,22 @@ export class CityComponent {
   //save/update model
   onSave(isValid: boolean) {
     if (isValid) {
-      this.appService.showLoading(true);
+      this.globalService.showLoading(true);
       this.subscription = this.service.save(this.model).subscribe(response => {
         try {
           let auditLogAction = this.mode == ActionMode.add ? LogAction.Add : LogAction.Update;
-          this.appService.handleApiResponse(response, this.logType, auditLogAction, this.pageTitleKey,
+          this.globalService.handleApiResponse(response, this.logType, auditLogAction, this.pageTitleKey,
             this.model, this.modelOld, true);
           if (response != null && response.IsSuccess) { 
             this.refresh();
           }
           else {
-            this.appService.showLoading(false);
+            this.globalService.showLoading(false);
           }
         } catch (e) {
-          this.appService.handleExceptions(e);
+          this.globalService.handleExceptions(e);
         }
-      }, error => { this.appService.handleApiError(error); });
+      }, error => { this.globalService.handleApiError(error); });
     }
     else {
       CommonMethods.writeLogs(AlertType.Warning, "Invallid form");
@@ -182,10 +182,10 @@ export class CityComponent {
       default:
     }
   }
-
+  
   //delete confirmation
   onDelete() {
-    swal.fire(this.appService.getDeleteConfirmationSetting(this.pageTitleKey)).then(function (result) {
+    swal.fire(this.globalService.getConfirmationSetting(this.pageTitleKey)).then(function (result) {
       if (result) {
         this.performDelete();
       }
@@ -195,20 +195,20 @@ export class CityComponent {
 
   //delete model
   performDelete() {
-    this.appService.showLoading(true);
+    this.globalService.showLoading(true);
     this.subscription = this.service.delete(this.model[this.uniqueKey]).subscribe(response => {
       try {
-        this.appService.handleApiResponse(response, this.logType, LogAction.Delete, this.pageTitleKey, this.model, null, true);
+        this.globalService.handleApiResponse(response, this.logType, LogAction.Delete, this.pageTitleKey, this.model, null, true);
         if (response != null && response.IsSuccess) {
           this.refresh();
         }
         else {
-          this.appService.showLoading(false);
+          this.globalService.showLoading(false);
         }
       } catch (e) {
-        this.appService.handleExceptions(e);
+        this.globalService.handleExceptions(e);
       }
-    }, error => { this.appService.handleApiError(error); });
+    }, error => { this.globalService.handleApiError(error); });
   }
 
   onEdit() {

@@ -13,73 +13,6 @@ export interface NavData {
 
 export const navItems: NavData[] = [
   {
-    name: 'Masters',
-    url: '/master',
-    icon: 'icon-puzzle',
-    children: [
-      {
-        name: 'City Master',
-        url: '/master/city',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Company Master',
-        url: '/master/companymaster',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Designation Master',
-        url: '/master/designationmaster',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Employee Master',
-        url: '/master/employeemaster',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Flat Master',
-        url: '/master/flatmaster',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Flat Owner History',
-        url: '/master/flatownerhistory',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Flat Type Master',
-        url: '/master/flattypemaster',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Floor Master',
-        url: '/master/floormaster',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Project Employee',
-        url: '/master/projectemployee',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Project Master',
-        url: '/master/projectmaster',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Society Master',
-        url: '/master/societymaster',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Wing Master',
-        url: '/master/wingmaster',
-        icon: 'icon-puzzle'
-      } 
-    ]
-  },
-  {
     name: "User Managements",
     url: '/usermanagements',
     icon: 'icon-puzzle',
@@ -90,17 +23,109 @@ export const navItems: NavData[] = [
         icon: 'icon-puzzle'
       },
       {
-        name: 'Users',
-        url: '/base/carousels',
+        name: 'Client Master',
+        url: '/usermanagements/clientmaster',
         icon: 'icon-puzzle'
-      }, 
-      {
-        name: 'User Role Mapping',
-        url: '/base/collapses',
-        icon: 'icon-puzzle'
-      } 
+      },
+      //{
+      //  name: 'Client Master',
+      //  url: '/usermanagements/clients',
+      //  icon: 'icon-puzzle'
+      //},
+      //{
+      //  name: 'Users',
+      //  url: '/base/carousels',
+      //  icon: 'icon-puzzle'
+      //},
+      //{
+      //  name: 'User Role Mapping',
+      //  url: '/base/collapses',
+      //  icon: 'icon-puzzle'
+      //}
     ]
   },
+  {
+    name: 'Masters',
+    url: '/master',
+    icon: 'icon-puzzle',
+    children: [
+      //{
+      //  name: 'City Master',
+      //  url: '/master/city',
+      //  icon: 'icon-puzzle'
+      //},
+      {
+        name: 'Common Table Type',
+        url: '/master/commontabletype',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'Designation Type',
+        url: '/master/designationtype',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'Designation Master',
+        url: '/master/designationmaster',
+        icon: 'icon-puzzle'
+      },
+      {
+        name: 'Designation Mapping',
+        url: '/master/designationtypemapping',
+        icon: 'icon-puzzle'
+      },
+      //{
+      //  name: 'Company Master',
+      //  url: '/master/companymaster',
+      //  icon: 'icon-puzzle'
+      //},      
+      //{
+      //  name: 'Employee Master',
+      //  url: '/master/employeemaster',
+      //  icon: 'icon-puzzle'
+      //},
+      //{
+      //  name: 'Flat Master',
+      //  url: '/master/flatmaster',
+      //  icon: 'icon-puzzle'
+      //},
+      //{
+      //  name: 'Flat Owner History',
+      //  url: '/master/flatownerhistory',
+      //  icon: 'icon-puzzle'
+      //},
+      //{
+      //  name: 'Flat Type Master',
+      //  url: '/master/flattypemaster',
+      //  icon: 'icon-puzzle'
+      //},
+      //{
+      //  name: 'Floor Master',
+      //  url: '/master/floormaster',
+      //  icon: 'icon-puzzle'
+      //},
+      //{
+      //  name: 'Project Employee',
+      //  url: '/master/projectemployee',
+      //  icon: 'icon-puzzle'
+      //},
+      //{
+      //  name: 'Project Master',
+      //  url: '/master/projectmaster',
+      //  icon: 'icon-puzzle'
+      //},
+      //{
+      //  name: 'Society Master',
+      //  url: '/master/societymaster',
+      //  icon: 'icon-puzzle'
+      //},
+      //{
+      //  name: 'Wing Master',
+      //  url: '/master/wingmaster',
+      //  icon: 'icon-puzzle'
+      //} 
+    ]
+  },  
   {
     name: 'Dashboard',
     url: '/dashboard',

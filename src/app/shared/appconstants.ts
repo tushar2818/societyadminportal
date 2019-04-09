@@ -1,5 +1,19 @@
 import swal from 'sweetalert2';
 import { SweetAlertType } from 'sweetalert2';
+import { environment } from '../../environments/environment';
+
+export enum DateFormat {
+  DDMMYYYY = "DD/MM/YYYY",
+  ddMMyyyy = "dd/MM/yyyy",
+
+  MMDDYYYY = "MM/DD/YYYY",
+  MMddyyyy = "MM/dd/yyyy"
+}
+
+export enum TimeFormat {
+  HHmm = "HH:mm",
+  hhmma = "hh:mm a"
+}
 
 export enum CityType {
   State = 'State',
@@ -14,11 +28,20 @@ export enum CityType {
 export class AppConstants {
 
   //api details
-  public static BASE_API_ENDPOINT_IDENTITY = 'http://localhost:31713/api/';
-  public static BASE_API_ENDPOINT_CITY = 'http://localhost:31497/api/';
-  public static BASE_API_ENDPOINT_SOCIETY = 'http://localhost:44354/api/';
+  static BASE_API_ENDPOINT_IDENTITY = environment.BASE_API_ENDPOINT_IDENTITY;
+  static BASE_API_ENDPOINT_CITY = environment.BASE_API_ENDPOINT_CITY;
+  static BASE_API_ENDPOINT_SOCIETY = environment.BASE_API_ENDPOINT_SOCIETY;
+  static DATE_FORMAT = environment.DATE_FORMAT;
+  static DATE_FORMAT_PIPE = environment.DATE_FORMAT_PIPE;
+  static TIME_FORMAT = environment.TIME_FORMAT;
 
-
+  public static UserDetailsKeyword = 'UserDetails';
+  public static IsUserLoggedIn = false;
+  public static UserID = '';
+  public static UserRole = '';
+  public static ClientID = 0;
+  public static CompanyID = 0; 
+  
   static defaultModalconfig = {
     //backdrop: false,
     ignoreBackdropClick: true,
@@ -48,6 +71,7 @@ export class CommonMethods {
   //handle api response and disply messages according to response status
   static handleApiResponse(response: any, logAction: LogAction, successTitle: string = "",
     errorTitle: string = "", alertMessage: string = "") {
+
     if (response == null) {
       CommonMethods.writeLogs(AlertType.Error, "'" + logAction + "' returns null response" );
     }
@@ -59,6 +83,7 @@ export class CommonMethods {
         response.DisplayMessage == null ? "" : response.DisplayMessage;
       CommonMethods.showMessage(message, AlertType.Success, successTitle);
     }
+
   }
 
   //get error string from array of strings
@@ -115,6 +140,141 @@ export class CommonMethods {
     return "";
   }
 
+  //get current date in UTC
+  static getCurrentDateInUTC(): number {
+    try {
+      var dateTemp = new Date();
+      return this.getUTCDate(dateTemp);
+    } catch (e) {
+      CommonMethods.writeLogs(e, AlertType.Error);
+    }
+    return 0;
+  }
+
+  //utc number => date (Date format)
+  static getDateFromUTC(utcnumber: any): Date {
+    try {
+      var myDate = new Date(utcnumber * 1000);
+      return myDate;
+    }
+    catch (ex) { }
+    return new Date();
+  }
+
+  //UTC time => local time (string format)
+  static getLocalTimeFromUTC(utcTime: any): string {
+    try {
+      var myDate = new Date(utcTime * 1000);
+      var dt = new moment(myDate, AppConstants.TIME_FORMAT, 'en');
+      return dt.format(AppConstants.TIME_FORMAT, 'en');
+    }
+    catch (e) { CommonMethods.writeLogs(e, AlertType.Error); }
+    return '';
+  }
+
+  // Date => UTC Start
+  static getUTCStartDate(date: any): number {
+    try {
+      var dateTemp = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      return this.getUTCDate(dateTemp);
+    } catch (e) {
+      CommonMethods.writeLogs(e, AlertType.Error);
+    }
+    return 0;
+  }
+
+  static getUTCEndDate(date: any): number {
+    try {
+      var dateTemp = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59);
+      return this.getUTCDate(dateTemp);
+    } catch (e) {
+      CommonMethods.writeLogs(e, AlertType.Error);
+    }
+    return 0;
+  }
+
+  //Date => UTC
+  static getUTCDate(date: any): number {
+    try {
+      return Math.round(date.getTime() / 1000.0);
+    } catch (e) {
+      CommonMethods.writeLogs(e, AlertType.Error);
+    }
+    return 0;
+  }
+
+  //Date => local date format string 
+  public static getLocalDateFromDate(date: any): string {
+    try {
+      if (date != null) {
+        var dateTemp = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        var dt = new moment(dateTemp);
+        var targetDate = dt.format(AppConstants.DATE_FORMAT);
+        return targetDate.toString();
+      }
+    } catch (e) {
+    }
+    return "";
+  }
+
+  //Date => updated date by number of days + -
+  public static GetUpdateDate(date: any, numberOfDays: number): any {
+    try {
+      let dateTemp: Date;
+      if (date != null) {
+        dateTemp = new Date(date);
+        dateTemp.setDate(date.getDate() + numberOfDays);
+        return dateTemp;
+      }
+    } catch (e) {
+    }
+    return "";
+  }
+
+  // local time => UTC
+  static getUTCFromLocalTime(localTime: any): number {
+    try {
+      var hour = -1;
+      var min = -1;
+      var sec = -1;
+      var milisec = -1;
+      var AmPm = '-';
+      switch (AppConstants.TIME_FORMAT) {
+        case TimeFormat.hhmma:
+          var all = localTime.split(":");
+          var amPm = all[1].split(" ");
+          if (amPm[1] == "AM") {
+            hour = all[0];
+            min = amPm[0];
+          }
+          else if (amPm[1] == "PM") {
+            hour = parseInt(all[0]) + 12;
+            min = amPm[0];
+          }
+          if (hour != -1 && min != -1) {
+            var defDate = new Date();
+            var defDate2 = new Date(defDate.getFullYear(), defDate.getMonth(), defDate.getDate(), hour, min);
+            return CommonMethods.getUTCDate(defDate2);
+          }
+          break;
+        case TimeFormat.HHmm:
+          var all = localTime.split(":");
+          hour = all[0];
+          min = all[1];
+          if (hour != -1 && min != -1) {
+            var defDate = new Date();
+            var defDate2 = new Date(defDate.getFullYear(), defDate.getMonth(), defDate.getDate(), hour, min);
+            return CommonMethods.getUTCDate(defDate2);
+          }
+          break;
+        default:
+      }
+    }
+    catch (e) {
+      CommonMethods.writeLogs(e, AlertType.Error);
+    }
+    return 0;
+  }
 }
 
 export enum ActionMode {
@@ -124,14 +284,18 @@ export enum ActionMode {
 
 export enum LogType {
   Role = "Role",
+  User = "User",
   City = "City",
   CompanyMaster = "Company Master",
   DesignationMaster = "Designation Master",
+  DesignationType = "Designation Type",
+  DesignationTypeMapping = "Designation Type Mapping",
   EmployeeMaster = "Employee Master",
   FlatMaster = "Flat Master",
   FlatOwnerHistory = "Flat Owner History",
   FlatTypeMaster = "Flat Type Master",
   FloorMaster = "Floor Master",
+  ClientMaster = "Client Master",
   ProjectEmployee = "Project Employee",
   ProjectMaster = "Project Master",
   SocietyMaster = "Society Master",
@@ -143,7 +307,9 @@ export enum LogAction {
   GetById = "Gel By Id",
   Add = "Add",
   Update = "Update",
-  Delete = "Delete"
+  Delete = "Delete",
+  GetAllLookups = "Gel All Lookups",
+  Save = "Save"
 }
 
 export enum AlertType {
@@ -158,3 +324,17 @@ export enum ApiType {
   Post = "Post",
   Delete = "Delete"
 }
+
+export enum Roles {
+  SuperAdmin = "Super Admin",
+  Admin = "Admin",
+  Client = "Client" 
+}
+
+export enum LookupType {
+  AllDesignationTypes = 'AllDesignationTypes',
+  AllDesignations = 'AllDesignations',
+  AllDesignationTypesMappings = 'AllDesignationTypesMappings' 
+} 
+
+
