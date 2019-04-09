@@ -1,25 +1,25 @@
-import { catchError, tap, map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Http, Response, RequestOptions, Headers } from '@angular/http';
-import { Observable, Subject } from 'rxjs';
-import { AppConstants, CommonMethods } from '../../shared/appconstants';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs';
+import { AppConstants } from '../../shared/appconstants';
 import { GlobalService } from '../../shared/global.service';
 
 @Injectable()
-export class FloorMasterService {
+export class CommonTableTypeService {
   constructor(private _http: Http,
     private globalService: GlobalService) { }
 
   //get all records
   getall(): Observable<any> {
-    return this._http.get(AppConstants.BASE_API_ENDPOINT_SOCIETY + "floormaster/getall", this.globalService.getRequestOptionsSociety()).pipe(
+    return this._http.get(AppConstants.BASE_API_ENDPOINT_SOCIETY + "commontabletype/getall", this.globalService.getRequestOptionsSociety()).pipe(
       map((response: Response) => <any>response.json()),
       catchError(this.globalService.handleErrorPromise));
   }
 
   //get record by id
   getById(Id): Observable<any> {
-    return this._http.get(AppConstants.BASE_API_ENDPOINT_SOCIETY + "floormaster/getbyid/" + Id, this.globalService.getRequestOptionsSociety()).pipe(
+    return this._http.get(AppConstants.BASE_API_ENDPOINT_SOCIETY + "commontabletype/getbyid/" + Id, this.globalService.getRequestOptionsSociety()).pipe(
       map((response: Response) => <any>response.json()),
       catchError(this.globalService.handleErrorPromise));
   }
@@ -27,14 +27,14 @@ export class FloorMasterService {
   //save/update
   save(model): Observable<any> {
     let body = JSON.stringify(model);
-    return this._http.post(AppConstants.BASE_API_ENDPOINT_SOCIETY + "floormaster/saveupdate", body, this.globalService.getRequestOptionsSociety()).pipe(
+    return this._http.post(AppConstants.BASE_API_ENDPOINT_SOCIETY + "commontabletype/saveupdate", body, this.globalService.getRequestOptionsSociety()).pipe(
       map((response: Response) => <any>response.json()),
       catchError(this.globalService.handleErrorPromise));
   }
 
   //delete record
   delete(id): Observable<any> {
-    return this._http.delete(AppConstants.BASE_API_ENDPOINT_SOCIETY + "floormaster/" + id, this.globalService.getRequestOptionsSociety()).pipe(
+    return this._http.delete(AppConstants.BASE_API_ENDPOINT_SOCIETY + "commontabletype/" + id, this.globalService.getRequestOptionsSociety()).pipe(
       map((response: Response) => <any>response.json()),
       catchError(this.globalService.handleErrorPromise));
   } 

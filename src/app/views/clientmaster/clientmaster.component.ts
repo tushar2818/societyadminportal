@@ -1,17 +1,17 @@
 import { Component, TemplateRef } from '@angular/core';
-import { AppConstants, AlertType, CommonMethods, ApiType, LogAction, LogType, ActionMode } from '../../shared/appconstants';
+import { AppConstants, AlertType, CommonMethods, ApiType, LogAction, LogType, ActionMode, Roles } from '../../shared/appconstants';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { GlobalService } from '../../shared/global.service';
 import swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
-import { FloorMasterService } from './floormaster.service';
+import { ClientMasterService } from './clientmaster.service';
+import { GlobalService } from '../../shared/global.service';
 
 @Component({
-  templateUrl: 'floormaster.component.html'
+  templateUrl: 'clientmaster.component.html'
 })
 
-export class FloorMasterComponent {
+export class ClientMasterComponent {
   subscription: Subscription;
   modalRef: BsModalRef;
   modelHeaders: any = [];
@@ -20,13 +20,13 @@ export class FloorMasterComponent {
   modelOld: any;
   isModelEditable: boolean;
   mode: ActionMode = ActionMode.add;
-  logType: LogType = LogType.FloorMaster;
-  uniqueKey: any = "FloorMasterID";
-  pageTitleKey: any = "PageTitles.FloorMaster";
+  logType: LogType = LogType.ClientMaster;
+  uniqueKey: any = "ClientMasterID";
+  pageTitleKey: any = "PageTitles.ClientMaster";
 
   //constructor 
   constructor(
-    private service: FloorMasterService,
+    private service: ClientMasterService,
     private modalService: BsModalService,
     private globalService: GlobalService) {
   }
@@ -34,8 +34,8 @@ export class FloorMasterComponent {
   //initilization
   ngOnInit() {
     try {
-      this.modelHeaders = ["TableHeaders.FloorName"];
-
+      this.modelHeaders = ["TableHeaders.ClientName", "TableHeaders.Email", "TableHeaders.Mobile", "TableHeaders.VallidFrom","TableHeaders.VallidTill", "TableHeaders.CompanyLimit",
+        "TableHeaders.ProjectLimit", "TableHeaders.Active", "TableHeaders.Deleted"];
       this.refresh();
     } catch (e) {
       this.globalService.handleExceptions(e);
@@ -81,6 +81,7 @@ export class FloorMasterComponent {
             this.isModelEditable = false;
             this.model = response.Result;
             this.modelOld = CommonMethods.getDeepCopy(this.model);
+            this.setDateTime(true);
             this.modalRef = this.modalService.show(template, AppConstants.defaultModalconfig);
             CommonMethods.addDefaultModalSettings();
           }
@@ -98,35 +99,101 @@ export class FloorMasterComponent {
     }
   }
 
+  saveClient() {
+    this.subscription = this.service.save(this.model).subscribe(response => {
+      try {
+        let auditLogAction = this.mode == ActionMode.add ? LogAction.Add : LogAction.Update;
+        this.globalService.handleApiResponse(response, this.logType, auditLogAction, this.pageTitleKey,
+          this.model, this.modelOld, true);
+        if (response != null && response.IsSuccess) {
+          this.refresh();
+        }
+        else {
+          this.setDateTime(true);
+          this.globalService.showLoading(false);
+        }
+      } catch (e) {
+          this.setDateTime(true);
+        this.globalService.handleExceptions(e);
+      }
+    }, error => {
+          this.setDateTime(true);
+      this.globalService.handleApiError(error);
+    });
+  }
+
   //save/update model
+  onSaveConfirm(isValid: boolean) {
+    swal.fire(this.globalService.getConfirmationSetting(this.pageTitleKey, LogAction.Save)).
+      then(function (result) {
+        if (result.value) {
+          this.onSave(isValid);
+        }
+      }.bind(this), function (dismiss) {
+      });
+  }
+
   onSave(isValid: boolean) {
     if (isValid) {
+      this.setDateTime();
       this.globalService.showLoading(true);
-      this.subscription = this.service.save(this.model).subscribe(response => {
+
+      this.model.UserName = this.model.Email;
+      this.model.PhoneNumber = this.model.Mobile;
+      this.model.PasswordHash = 'Ini1234*';//password will not be consider in case of update
+      this.model.RoleName = Roles.Client;
+      this.model.Id = this.model.UserID;
+
+      debugger;
+      this.subscription = this.globalService.saveUpdateUser(this.model).subscribe(response => {
         try {
-          let auditLogAction = this.mode == ActionMode.add ? LogAction.Add : LogAction.Update;
-          this.globalService.handleApiResponse(response, this.logType, auditLogAction, this.pageTitleKey,
-            this.model, this.modelOld, true);
           if (response != null && response.IsSuccess) {
-            this.refresh();
+            //user saved successfully
+            this.globalService.keepAuditLogs(LogType.User, LogAction.Add, this.model);
+            this.model.UserID = response.Result.Id;
+            this.saveClient();
           }
           else {
+            let errors = CommonMethods.getErrorStringFromListOfErrors(response);
+            let errorTitle = this.globalService.getTranslate("AlertTitle.Error");
+            CommonMethods.showMessage(errors, AlertType.Error, errorTitle);
+            this.setDateTime(true);
             this.globalService.showLoading(false);
           }
         } catch (e) {
+          this.setDateTime(true);
           this.globalService.handleExceptions(e);
         }
-      }, error => { this.globalService.handleApiError(error); });
+      }, error => {
+        this.setDateTime(true);
+        this.globalService.handleApiError(error);
+      });
     }
     else {
       CommonMethods.writeLogs(AlertType.Warning, "Invallid form");
     }
   }
 
+  //date time conversion
+  setDateTime(isShowOnPage: boolean = false) {
+    try {
+      if (isShowOnPage) {
+        this.model.VallidFrom = CommonMethods.getDateFromUTC(this.model.VallidFrom);
+        this.model.VallidTill = CommonMethods.getDateFromUTC(this.model.VallidTill); 
+      }
+      else {
+        this.model.VallidFrom = CommonMethods.getUTCStartDate(this.model.VallidFrom);
+        this.model.VallidTill = CommonMethods.getUTCStartDate(this.model.VallidTill); 
+      }
+    } catch (e) {
+      CommonMethods.writeLogs(e, AlertType.Error);
+    }
+  }
+
   //delete confirmation
   onDelete() {
     swal.fire(this.globalService.getConfirmationSetting(this.pageTitleKey)).then(function (result) {
-      if (result) {
+      if (result.value) {
         this.performDelete();
       }
     }.bind(this), function (dismiss) {

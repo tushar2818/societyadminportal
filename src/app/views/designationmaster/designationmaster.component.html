@@ -19,7 +19,10 @@
       <tbody>
         <tr *ngFor="let row of modellist; let i = index">
           <td>{{ (i+1) }}</td>
-          <td class="custom-hyperlink" (click)="onOpenPopup(template,row)"><a>{{row.Designation}}</a> </td> 
+          <td class="custom-hyperlink" (click)="onOpenPopup(template,row)"><a>{{row.DesignationKey}}</a> </td>
+          <td>{{row.DesignationValue}}</td>
+          <td>{{row.DesignationHin}}</td>
+          <td>{{row.DesignationMar}}</td>
         </tr>
       </tbody>
     </table>
@@ -42,13 +45,35 @@
     <div class="modal-body">
 
       <div class="col-md-12">
+
         <div class="form-group">
-          <label class="form-col-form-label" for="Designation">{{ 'Keys.Designation' | translate }}</label>
-          <input type="text" class="form-control" id="Designation" name="Designation"
-                 [(ngModel)]="model.Designation" required [readonly]="!isModelEditable">
+          <label class="form-col-form-label" for="DesignationKey">{{ 'Keys.DesignationKey' | translate }}</label>
+          <input type="text" class="form-control" id="DesignationKey" name="DesignationKey"
+                 [(ngModel)]="model.DesignationKey" required [readonly]="!isModelEditable">
           <div class="invalid-feedback" [hidden]="model[uniqueKey] == null && !f.submitted">
             {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.Designation' | translate } }}
           </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-col-form-label" for="DesignationValue">{{ 'Keys.DesignationValue' | translate }}</label>
+          <input type="text" class="form-control" id="DesignationValue" name="DesignationValue"
+                 [(ngModel)]="model.DesignationValue" required [readonly]="!isModelEditable">
+          <div class="invalid-feedback" [hidden]="model[uniqueKey] == null && !f.submitted">
+            {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.Designation' | translate } }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-col-form-label" for="DesignationHin">{{ 'Keys.DesignationHin' | translate }}</label>
+          <input type="text" class="form-control" id="DesignationHin" name="DesignationHin"
+                 [(ngModel)]="model.DesignationHin" [readonly]="!isModelEditable">
+        </div>
+
+        <div class="form-group">
+          <label class="form-col-form-label" for="DesignationMar">{{ 'Keys.DesignationMar' | translate }}</label>
+          <input type="text" class="form-control" id="DesignationMar" name="DesignationMar"
+                 [(ngModel)]="model.DesignationMar" [readonly]="!isModelEditable">
         </div>
       </div>
 

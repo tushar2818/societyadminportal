@@ -25,7 +25,17 @@
     "SocietyMasters": "Society Masters",
     "SocietyMaster": "Society Master",
     "WingMasters": "Wing Masters",
-    "WingMaster": "Wing Master"
+    "WingMaster": "Wing Master",
+
+    "DesignationTypes": "Designation Types",
+    "DesignationType": "Designation Type",
+    "CommonTableTypes": "Common Table Types",
+    "CommonTableType": "Designation Type",
+    "DesignationTypeMappings": "Designation Type Mappings",
+    "DesignationTypeMapping": "Designation Type Mappings",
+
+    "ClientMasters": "Client Masters",
+    "ClientMaster": "Client Master"
   },
   "ActionButton": {
     "Add": "Add",
@@ -34,12 +44,12 @@
     "Edit": "Edit",
     "Close": "Close",
     "Cancel": "Cancel",
-    "Save": "Save"
+    "Save": "Save",
+    "Remove": "Remove"
   },
   "TableHeaders": {
     "Role": "Role",
-    "NormalizedRole": "Normalized Role",
-    "ConcurrencyStamp": "Concurrency Stamp",
+    "Priority": "Priority",
 
     "CompanyName": "Company Name",
     "Email": "Email",
@@ -50,7 +60,26 @@
 
     "FloorName": "Floor Name",
 
-    "FlatType": "Flat Type"
+    "FlatType": "Flat Type",
+
+    "DesignationKey": "Designation Key",
+    "DesignationValue": "Designation Value",
+    "DesignationHin": "Hindi",
+    "DesignationMar": "Marathi",
+
+    "DesignationTypeKey": "Designation Type Key",
+    "DesignationTypeValue": "Designation Type Value",
+
+    "CommonTableTypeKey": "Common Table Type Key",
+    "CommonTableTypeValue": "Common Table Type Value",
+
+    "ClientName": "Client Name",
+    "VallidFrom": "Vallid From",
+    "VallidTill": "Vallid Till",
+    "CompanyLimit": "Company Limit",
+    "ProjectLimit": "Project Limit",
+    "Active": "Active",
+    "Deleted": "Deleted"
   },
   "Keys": {
     "No": "No.",
@@ -60,6 +89,7 @@
 
     "CityType": "City Type",
     "Role": "Role",
+    "RolePriority": "Priority",
     "StateId": "State",
     "DistrictId": "District",
     "TalukaId": "Taluka",
@@ -83,14 +113,47 @@
 
     "Designation": "Designation",
 
-    "FlatType": "Flat Type"
+    "FlatType": "Flat Type",
 
+    "DesignationKey": "Designation Key",
+    "DesignationValue": "Designation Value",
+    "DesignationHin": "Designation in Hindi",
+    "DesignationMar": "Designation in Marathi",
+
+    "DesignationTypeKey": "Designation Type Key",
+    "DesignationTypeValue": "Designation Type Value",
+
+    "CommonTableTypeKey": "Common Table Type Key",
+    "CommonTableTypeValue": "Common Table Type Value",
+
+    "DesignationType": "Designations Type",
+    "NonSelectedDesignations": "Non-Selected Designations",
+    "SelectedDesignations": "Selected Designations",
+
+    "ClientName": "Client Name",
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "VallidFrom": "Vallid From",
+    "VallidTill": "Vallid Till",
+    "CompanyLimit": "Company Limit",
+    "ProjectLimit": "Project Limit",
+    "BuildingLimit": "Building Limit",
+    "WingLimit": "Wing Limit",
+    "FlatLimit": "Flat Limit",
+    "ContactPerson": "Contact Person",
+    "ContactPersonMobile": "Contact Person Mobile",
+    "Website": "Website",
+    "ClientDetails": "Client Details",
+
+    "Active": "Active",
+    "Deleted": "Deleted"
   },
   "Messages": {
     "Error": "Error",
     "ApiError": "Server or Internet Connection is not available",
     "AreYouSure": "Are you sure ?",
     "YouWantBeAbleToRevert": "You won't be able to revert this",
+    "DoYouWantToSaveRecord": "Do you want to Save this records?",
     "IsRequired": "is required",
     "InvalidForm": "Invalid Forms",
     "MessageAdded": "added",
@@ -109,6 +172,7 @@
     "add": "Add New {{Value1}}",
     "edit": "{{Value1}} Details",
     "YouWantDeleteToThis": "Do you want to delete this {{Value1}} ? You won't be able to revert this.",
+    "DoYouWantToSaveRecord": "Do you want to Save this {{Value1}} ?",
     "AddUpdateDeleteSuccessfull": "{{Value1}} has been {{Value2}} successfully",
     "IsRequired": "{{Value1}} is required",
     "SelectDropdown": "Select {{Value1}}"

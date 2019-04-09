@@ -3,13 +3,17 @@
     "",
     "\\src",
     "\\src\\app",
+    "\\src\\app\\containers",
+    "\\src\\app\\containers\\default-layout",
     "\\src\\app\\shared",
     "\\src\\app\\views",
-    "\\src\\app\\views\\city",
-    "\\src\\app\\views\\roles",
+    "\\src\\app\\views\\clientmaster",
+    "\\src\\app\\views\\designationtypemapping",
+    "\\src\\app\\views\\flattypemaster",
+    "\\src\\app\\views\\loginpage",
     "\\src\\assets",
-    "\\src\\assets\\i18n"
+    "\\src\\environments"
   ],
-  "SelectedNode": "\\src\\app\\views\\roles\\roles.component.ts",
+  "SelectedNode": "\\src\\app\\views\\clientmaster\\clientmaster.component.ts",
   "PreviewInSolutionExplorer": false
 }

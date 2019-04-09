@@ -6,10 +6,10 @@ import { AppConstants } from '../../shared/appconstants';
 import { Params, Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './default-layout.component.html'
+  selector: 'app-dashboard.backup',
+  templateUrl: './default-layout.component.backup.html'
 })
-export class DefaultLayoutComponent implements OnDestroy {
+export class DefaultLayoutBackupComponent implements OnDestroy {
   public navItems = navItems;
   public sidebarMinimized = true;
   private changes: MutationObserver;
@@ -45,7 +45,8 @@ export class DefaultLayoutComponent implements OnDestroy {
   //logout from application
   logoutClick() {
     try {
-      this.globalService.clearUserData();
+      localStorage.removeItem(AppConstants.UserDetailsKeyword);
+      localStorage.clear();
       this.router.navigate(['/loginpage']);
     } catch (e) {
       this.globalService.handleExceptions(e);
