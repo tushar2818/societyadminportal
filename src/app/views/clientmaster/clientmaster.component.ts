@@ -203,13 +203,33 @@ export class ClientMasterComponent {
   //delete model
   performDelete() {
     this.globalService.showLoading(true);
-    this.subscription = this.service.delete(this.model[this.uniqueKey]).subscribe(response => {
+
+    //delete user first
+    this.subscription = this.globalService.deleteUser(this.model.UserID).subscribe(response => {
       try {
-        this.globalService.handleApiResponse(response, this.logType, LogAction.Delete, this.pageTitleKey, this.model, null, true);
+
         if (response != null && response.IsSuccess) {
-          this.refresh();
+          //user deleted successfully
+          this.globalService.keepAuditLogs(LogType.User, LogAction.Delete, this.model);
+          //then delete it from client master table
+          this.subscription = this.service.delete(this.model[this.uniqueKey]).subscribe(response => {
+            try {
+              this.globalService.handleApiResponse(response, this.logType, LogAction.Delete, this.pageTitleKey, this.model, null, true);
+              if (response != null && response.IsSuccess) {
+                this.refresh();
+              }
+              else {
+                this.globalService.showLoading(false);
+              }
+            } catch (e) {
+              this.globalService.handleExceptions(e);
+            }
+          }, error => { this.globalService.handleApiError(error); }); 
         }
         else {
+          let errors = CommonMethods.getErrorStringFromListOfErrors(response);
+          let errorTitle = this.globalService.getTranslate("AlertTitle.Error");
+          CommonMethods.showMessage(errors, AlertType.Error, errorTitle);
           this.globalService.showLoading(false);
         }
       } catch (e) {

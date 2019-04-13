@@ -19,10 +19,8 @@
       <tbody>
         <tr *ngFor="let row of modellist; let i = index">
           <td>{{ (i+1) }}</td>
-          <td class="custom-hyperlink" (click)="onOpenPopup(template,row)"><a>{{row.CompanyName}}</a> </td>
-          <td>{{row.Email}}</td>
-          <td>{{row.Mobile}}</td>
-          <td>{{row.Address}}</td>
+          <td class="custom-hyperlink" (click)="onOpenPopup(template,row)"><a>{{row.ProjectName}}</a> </td>
+          <td>{{row.Address}}</td> 
         </tr>
       </tbody>
     </table>
@@ -49,34 +47,30 @@
         <div class="col-md-6">
 
           <div class="form-group">
-            <label class="form-col-form-label" for="CompanyName">{{ 'Keys.CompanyName' | translate }}</label>
-            <textarea id="CompanyName" name="CompanyName" [(ngModel)]="model.CompanyName"
-                   required [readonly]="!isModelEditable" class="form-control"></textarea>
+            <label class="form-col-form-label" for="ProjectName">{{ 'Keys.ProjectName' | translate }}</label>
+            <textarea id="ProjectName" name="ProjectName" [(ngModel)]="model.ProjectName"
+                      required [readonly]="!isModelEditable" class="form-control"></textarea>
             <div class="invalid-feedback" [hidden]="!f.submitted">
-              {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.CompanyName' | translate } }}
+              {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.ProjectName' | translate } }}
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-col-form-label" for="Mobile">{{ 'Keys.Mobile' | translate }}</label>
-            <input type="number" class="form-control" id="Mobile" name="Mobile"
-                   [(ngModel)]="model.Mobile"
-                   required [readonly]="!isModelEditable">
-            <div class="invalid-feedback" [hidden]="!f.submitted">
-              {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.Mobile' | translate } }}
-            </div>
+            <label class="form-col-form-label" for="ReraNo">{{ 'Keys.ReraNo' | translate }}</label>
+            <input type="text" class="form-control" id="ReraNo" name="ReraNo"
+                   [(ngModel)]="model.ReraNo" [readonly]="!isModelEditable" />
           </div>
 
           <div class="form-group">
-            <label class="form-col-form-label" for="CIN">{{ 'Keys.CIN' | translate }}</label>
-            <input type="text" class="form-control" id="CIN" name="CIN"
-                   [(ngModel)]="model.CIN" [readonly]="!isModelEditable" />
+            <label class="form-col-form-label" for="Latitude">{{ 'Keys.Latitude' | translate }}</label>
+            <input type="text" class="form-control" id="Latitude" name="Latitude"
+                   [(ngModel)]="model.Latitude" [readonly]="!isModelEditable">
           </div>
 
           <div class="form-group">
-            <label class="form-col-form-label" for="GST">{{ 'Keys.GST' | translate }}</label>
-            <input type="text" class="form-control" id="GST" name="GST"
-                   [(ngModel)]="model.GST" [readonly]="!isModelEditable" />
+            <label class="form-col-form-label" for="ProjectDetails">{{ 'Keys.ProjectDetails' | translate }}</label>
+            <textarea id="ProjectDetails" name="ProjectDetails" [(ngModel)]="model.ProjectDetails"
+                      [readonly]="!isModelEditable" class="form-control"></textarea>
           </div>
 
         </div>
@@ -93,26 +87,16 @@
           </div>
 
           <div class="form-group">
-            <label class="form-col-form-label" for="Email">{{ 'Keys.Email' | translate }}</label>
-            <input type="email" class="form-control" id="Email" name="Email"
-                   [(ngModel)]="model.Email"
-                   required [readonly]="!isModelEditable">
-            <div class="invalid-feedback" [hidden]="!f.submitted">
-              {{ 'MessageFormatter.IsRequired' | translate : { Value1: 'Keys.Email' | translate } }}
-            </div>
+            <label class="form-col-form-label" for="Website">{{ 'Keys.Website' | translate }}</label>
+            <input type="url" class="form-control" id="Website" name="Website"
+                   [(ngModel)]="model.Website" [readonly]="!isModelEditable">
           </div>
 
           <div class="form-group">
-            <label class="form-col-form-label" for="LandLine">{{ 'Keys.LandLine' | translate }}</label>
-            <input type="text" class="form-control" id="Email" name="LandLine" [(ngModel)]="model.LandLine"
+            <label class="form-col-form-label" for="Longiude">{{ 'Keys.Longiude' | translate }}</label>
+            <input type="text" class="form-control" id="Longiude" name="Longiude" [(ngModel)]="model.Longiude"
                    [readonly]="!isModelEditable" />
-          </div>
-
-          <div class="form-group">
-            <label class="form-col-form-label" for="PAN">{{ 'Keys.PAN' | translate }}</label>
-            <input type="text" class="form-control" id="PAN" name="PAN"
-                   [(ngModel)]="model.PAN" [readonly]="!isModelEditable" />
-          </div>
+          </div> 
 
         </div>
 

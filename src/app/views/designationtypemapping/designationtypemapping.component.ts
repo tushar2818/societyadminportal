@@ -47,7 +47,13 @@ export class DesignationTypeMappingComponent {
       this.addButtonDisabled = true;
       this.removeButtonDisabled = true;
       this.globalService.showLoading(true);
-      let allLookupKeys = [LookupType.AllDesignationTypes, LookupType.AllDesignations, LookupType.AllDesignationTypesMappings];
+
+      let allLookupKeys = [
+        { LookupType: LookupType.AllDesignationTypes },
+        { LookupType: LookupType.AllDesignations },
+        { LookupType: LookupType.AllDesignationTypesMappings } 
+      ];
+
       this.subscription = this.globalService.getallLookups(allLookupKeys).subscribe(response => {
         try {
 
