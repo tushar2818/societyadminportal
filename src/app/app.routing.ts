@@ -61,14 +61,14 @@ export const routes: Routes = [
     },
   canActivate: [AuthGuard],
     children: [
-      //{
-      //  path: 'master',
-      //  loadChildren: './views/city/city.module#CityModule'
-      //},
-      //{
-      //  path: 'master',
-      //  loadChildren: './views/companymaster/companymaster.module#CompanyMasterModule'
-      //},
+      {
+        path: 'usermanagements',
+        loadChildren: './views/roles/roles.module#RolesModule'
+      },
+      {
+        path: 'usermanagements',
+        loadChildren: './views/clientmaster/clientmaster.module#ClientMasterModule'
+      },
       {
         path: 'master',
         loadChildren: './views/commontabletype/commontabletype.module#CommonTableTypeModule'
@@ -85,21 +85,21 @@ export const routes: Routes = [
         path: 'master',
         loadChildren: './views/designationtypemapping/designationtypemapping.module#DesignationTypeMappingModule'
       },
-      //{
-      //  path: 'master',
-      //  loadChildren: './views/flattypemaster/flattypemaster.module#FlatTypeMasterModule'
-      //},  
-      //{
-      //  path: 'master',
-      //  loadChildren: './views/floormaster/floormaster.module#FloorMasterModule'
-      //},  
       {
-        path: 'usermanagements',
-        loadChildren: './views/roles/roles.module#RolesModule'
+        path: 'master',
+        loadChildren: './views/companymaster/companymaster.module#CompanyMasterModule'
+      }, 
+      {
+        path: 'master',
+        loadChildren: './views/projectmaster/projectmaster.module#ProjectMasterModule'
       },
       {
-        path: 'usermanagements',
-        loadChildren: './views/clientmaster/clientmaster.module#ClientMasterModule'
+        path: 'master',
+        loadChildren: './views/buildingmaster/buildingmaster.module#BuildingMasterModule'
+      },
+      {
+        path: 'master',
+        loadChildren: './views/wingmaster/wingmaster.module#WingMasterModule'
       },
       {
         path: 'base',

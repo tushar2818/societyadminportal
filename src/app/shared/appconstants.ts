@@ -35,12 +35,14 @@ export class AppConstants {
   static DATE_FORMAT_PIPE = environment.DATE_FORMAT_PIPE;
   static TIME_FORMAT = environment.TIME_FORMAT;
 
-  public static UserDetailsKeyword = 'UserDetails';
-  public static IsUserLoggedIn = false;
-  public static UserID = '';
-  public static UserRole = '';
-  public static ClientID = 0;
-  public static CompanyID = 0; 
+  static UserDetailsKeyword = 'UserDetails';
+  static IsUserLoggedIn = false;
+  static UserID = '';
+  static UserRole = '';
+  static ClientID = 0;
+  static CompanyID = 0; 
+  static PersonID = 0; 
+  static ProjectID = 0; 
   
   static defaultModalconfig = {
     //backdrop: false,
@@ -89,7 +91,7 @@ export class CommonMethods {
   //get error string from array of strings
   static getErrorStringFromListOfErrors(response: any) {
     if (response.ErrorMessages == null)
-      return "";
+      return "Error";
     let errors = response.ErrorMessages.map(data => data.Message);
     return errors.toString();
   }
@@ -334,7 +336,11 @@ export enum Roles {
 export enum LookupType {
   AllDesignationTypes = 'AllDesignationTypes',
   AllDesignations = 'AllDesignations',
-  AllDesignationTypesMappings = 'AllDesignationTypesMappings' 
+  AllDesignationTypesMappings = 'AllDesignationTypesMappings',
+  LoggedInUserDetails = 'LoggedInUserDetails',
+  AllClients = 'AllClients',
+  AllCompanies = 'AllCompanies',
+  AllBuildings = "AllBuildings"
 } 
 
 

@@ -2,8 +2,9 @@ import { Component, OnDestroy, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { navItems } from './../../_nav';
 import { GlobalService } from '../../shared/global.service';
-import { AppConstants } from '../../shared/appconstants';
+import { AppConstants, LookupType, CommonMethods, AlertType } from '../../shared/appconstants';
 import { Params, Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +16,9 @@ export class DefaultLayoutComponent implements OnDestroy {
   private changes: MutationObserver;
   public element: HTMLElement;
   userData: any;
+  companyList: any = [];
+  projectList: any = [];
+  subscription: Subscription;
 
   constructor(private globalService: GlobalService,
     private router: Router,
@@ -33,6 +37,8 @@ export class DefaultLayoutComponent implements OnDestroy {
   ngOnInit() {
     try {
       this.userData = this.globalService.getUserData();
+      this.companyList = this.globalService.getCompanyList();
+      this.projectList = this.globalService.getProjectsList();
     } catch (e) {
       this.globalService.handleExceptions(e);
     }
@@ -40,6 +46,7 @@ export class DefaultLayoutComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.changes.disconnect();
+    this.subscription.unsubscribe();
   }
 
   //logout from application

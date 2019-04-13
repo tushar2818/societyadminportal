@@ -3,17 +3,11 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\containers",
-    "\\src\\app\\containers\\default-layout",
     "\\src\\app\\shared",
     "\\src\\app\\views",
-    "\\src\\app\\views\\clientmaster",
-    "\\src\\app\\views\\designationtypemapping",
-    "\\src\\app\\views\\flattypemaster",
-    "\\src\\app\\views\\loginpage",
-    "\\src\\assets",
-    "\\src\\environments"
+    "\\src\\app\\views\\companymaster",
+    "\\src\\app\\views\\loginpage"
   ],
-  "SelectedNode": "\\src\\app\\views\\clientmaster\\clientmaster.component.ts",
+  "SelectedNode": "\\src\\app\\views\\loginpage\\loginpage.component.ts",
   "PreviewInSolutionExplorer": false
 }

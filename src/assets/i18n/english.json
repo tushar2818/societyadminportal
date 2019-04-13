@@ -25,17 +25,17 @@
     "SocietyMasters": "Society Masters",
     "SocietyMaster": "Society Master",
     "WingMasters": "Wing Masters",
-    "WingMaster": "Wing Master",
-
+    "WingMaster": "Wing Master", 
     "DesignationTypes": "Designation Types",
     "DesignationType": "Designation Type",
     "CommonTableTypes": "Common Table Types",
     "CommonTableType": "Designation Type",
     "DesignationTypeMappings": "Designation Type Mappings",
-    "DesignationTypeMapping": "Designation Type Mappings",
-
+    "DesignationTypeMapping": "Designation Type Mappings", 
     "ClientMasters": "Client Masters",
-    "ClientMaster": "Client Master"
+    "ClientMaster": "Client Master",
+    "BuildingMasters": "Building Masters",
+    "BuildingMaster": "Building Master" 
   },
   "ActionButton": {
     "Add": "Add",
@@ -49,44 +49,39 @@
   },
   "TableHeaders": {
     "Role": "Role",
-    "Priority": "Priority",
-
+    "Priority": "Priority", 
     "CompanyName": "Company Name",
     "Email": "Email",
     "Mobile": "Mobile",
-    "Address": "Address",
-
-    "Designation": "Designation",
-
-    "FloorName": "Floor Name",
-
-    "FlatType": "Flat Type",
-
+    "Address": "Address", 
+    "Designation": "Designation", 
+    "FloorName": "Floor Name", 
+    "FlatType": "Flat Type", 
     "DesignationKey": "Designation Key",
     "DesignationValue": "Designation Value",
     "DesignationHin": "Hindi",
-    "DesignationMar": "Marathi",
-
+    "DesignationMar": "Marathi", 
     "DesignationTypeKey": "Designation Type Key",
-    "DesignationTypeValue": "Designation Type Value",
-
+    "DesignationTypeValue": "Designation Type Value", 
     "CommonTableTypeKey": "Common Table Type Key",
-    "CommonTableTypeValue": "Common Table Type Value",
-
+    "CommonTableTypeValue": "Common Table Type Value", 
     "ClientName": "Client Name",
     "VallidFrom": "Vallid From",
     "VallidTill": "Vallid Till",
     "CompanyLimit": "Company Limit",
     "ProjectLimit": "Project Limit",
     "Active": "Active",
-    "Deleted": "Deleted"
+    "Deleted": "Deleted", 
+    "ProjectName": "Project Name",
+    "BuildingName": "Building Name",
+    "WingName": "Wing Name",
+    "NoOfFloor": "Total Floor" 
   },
   "Keys": {
     "No": "No.",
     "IsDeleted": "Deleted",
     "IsActive": "Active",
-    "SelectLanguage": "Select Language",
-
+    "SelectLanguage": "Select Language", 
     "CityType": "City Type",
     "Role": "Role",
     "RolePriority": "Priority",
@@ -98,10 +93,8 @@
     "MalePopulation": "Male Population",
     "PinCode": "PinCode",
     "Longitude": "Longitude",
-    "FemalePopulation": "Female Population",
-
-    "FloorName": "Floor Name",
-
+    "FemalePopulation": "Female Population", 
+    "FloorName": "Floor Name", 
     "CompanyName": "Company Name",
     "Email": "Email",
     "LandLine": "LandLine",
@@ -109,27 +102,20 @@
     "CIN": "CIN",
     "PAN": "PAN",
     "GST": "GST",
-    "Address": "Address",
-
-    "Designation": "Designation",
-
-    "FlatType": "Flat Type",
-
+    "Address": "Address", 
+    "Designation": "Designation", 
+    "FlatType": "Flat Type", 
     "DesignationKey": "Designation Key",
     "DesignationValue": "Designation Value",
     "DesignationHin": "Designation in Hindi",
-    "DesignationMar": "Designation in Marathi",
-
+    "DesignationMar": "Designation in Marathi", 
     "DesignationTypeKey": "Designation Type Key",
-    "DesignationTypeValue": "Designation Type Value",
-
+    "DesignationTypeValue": "Designation Type Value", 
     "CommonTableTypeKey": "Common Table Type Key",
-    "CommonTableTypeValue": "Common Table Type Value",
-
+    "CommonTableTypeValue": "Common Table Type Value", 
     "DesignationType": "Designations Type",
     "NonSelectedDesignations": "Non-Selected Designations",
-    "SelectedDesignations": "Selected Designations",
-
+    "SelectedDesignations": "Selected Designations", 
     "ClientName": "Client Name",
     "FirstName": "First Name",
     "LastName": "Last Name",
@@ -143,10 +129,17 @@
     "ContactPerson": "Contact Person",
     "ContactPersonMobile": "Contact Person Mobile",
     "Website": "Website",
-    "ClientDetails": "Client Details",
-
+    "ClientDetails": "Client Details", 
     "Active": "Active",
-    "Deleted": "Deleted"
+    "Deleted": "Deleted", 
+    "ProjectName": "Project Name",
+    "ReraNo": "Rera No",
+    "Longiude": "Longiude",
+    "ProjectDetails": "Project Details",
+    "BuildingName": "Building Name",
+    "BuildingDetails": "Building Details",
+    "WingName": "Wing Name",
+    "NoOfFloor": "Total Floor"
   },
   "Messages": {
     "Error": "Error",

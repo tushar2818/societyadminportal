@@ -4,7 +4,6 @@ import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable, Subject } from 'rxjs';
 import { Subscription } from 'rxjs'; 
 import { AppConstants, CommonMethods, LogAction, LogType, AlertType, LookupType } from './appconstants';
-import { LookupTypeModel } from './models';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -14,6 +13,8 @@ export class GlobalService {
   subscription: Subscription;
   public availableLanguages: any = [{ Key: 'English', Value: 'english' }, { Key: 'हिंदी', Value: 'hindi' }, { Key: 'मराठी', Value: 'marathi' }];
   public selectedLanguage: string = "english";
+  public selectedCompanyID: number = 0;
+  public selectedProjectID: number = 0;
   public dateFormat = AppConstants.DATE_FORMAT;
   public dateFormatPipe = AppConstants.DATE_FORMAT_PIPE;
   public timeFormat = AppConstants.TIME_FORMAT;
@@ -30,10 +31,12 @@ export class GlobalService {
   public getRequestOptionsSociety(): RequestOptions {
     let headerStringCity = {
       'Content-Type': 'application/json',
-      'ApplicationId': 1,
-      'ApplicationToken': 2,
-      'UserID': AppConstants.UserID, 
-      'CompanyId': 3
+      'Token': 2,
+      'ClientID': AppConstants.ClientID,
+      'CompanyID': AppConstants.CompanyID,
+      'UserID': AppConstants.UserID,
+      'PersonID': AppConstants.PersonID,
+      'ProjectID': AppConstants.ProjectID
     };
     return new RequestOptions({ headers: new Headers(headerStringCity) })
   }
@@ -65,6 +68,16 @@ export class GlobalService {
     this.translate.use(this.selectedLanguage);
   }
 
+  //change company
+  public changeCompany() {
+    AppConstants.CompanyID = this.selectedCompanyID;
+  }
+
+  //change project
+  public changeProject() {
+    AppConstants.ProjectID = this.selectedProjectID;
+  }
+
   //show/hide loading indicator
   public showLoading(show: boolean) {
     if (show) this.ngxSpinnerService.show();
@@ -73,11 +86,7 @@ export class GlobalService {
 
   //get all lookups
   getallLookups(lookupType: any): Observable<any> {
-    let lookupTypeModels: any = [];
-    for (let lookup of lookupType) {
-      lookupTypeModels.push({ LookupType: lookup });
-    }
-    let body = JSON.stringify(lookupTypeModels);
+    let body = JSON.stringify(lookupType);
     return this._http.post(AppConstants.BASE_API_ENDPOINT_SOCIETY + "lookup/getlookups", body,
       this.getRequestOptionsSociety()).pipe(
         map((response: Response) => <any>response.json()),
@@ -93,9 +102,7 @@ export class GlobalService {
       });
     }
     return sResult;
-  }
-
-  
+  } 
 
   //handle exceptions
   public handleExceptions(e) {
@@ -197,6 +204,14 @@ export class GlobalService {
         catchError(this.handleErrorPromise));
   }
 
+  public deleteUser(userId: any): Observable<any> {
+    return this._http.delete(AppConstants.BASE_API_ENDPOINT_IDENTITY + "user/" + userId,
+      this.getRequestOptionsIdentity()).pipe(
+        map((response: Response) => <any>response.json()),
+        catchError(this.handleErrorPromise));
+  }
+
+
   //clear user data
   public clearUserData() {
     AppConstants.IsUserLoggedIn = false;
@@ -204,6 +219,8 @@ export class GlobalService {
     AppConstants.UserRole = '';
     AppConstants.ClientID = 0;
     AppConstants.CompanyID = 0;
+    AppConstants.PersonID = 0;
+    AppConstants.ProjectID = 0;
     localStorage.removeItem(AppConstants.UserDetailsKeyword);
     localStorage.clear();
   }
@@ -213,20 +230,74 @@ export class GlobalService {
     try {
       let userDetails = localStorage.getItem(AppConstants.UserDetailsKeyword)
       if (userDetails != null) {
+
         let userData = JSON.parse(userDetails);
         AppConstants.UserID = userData.ApplicationUserDTO.Id;
         AppConstants.UserRole = userData.Roles[0];
+
+        if (userData.UserDetails != null) {
+
+          if (userData.UserDetails.DesignationList != null &&
+            userData.UserDetails.DesignationList.length > 0) {
+            AppConstants.ClientID = userData.UserDetails.DesignationList[0].PersonMaster.ClientMasterID;
+            AppConstants.PersonID = userData.UserDetails.DesignationList[0].PersonMaster.PersonMasterID;
+          }
+
+          if (userData.UserDetails.CompaniesList != null &&
+            userData.UserDetails.CompaniesList.length > 0) {
+            AppConstants.CompanyID = userData.UserDetails.CompaniesList[0].CompanyMasterID;
+            this.selectedCompanyID = AppConstants.CompanyID;
+          }
+
+          if (userData.UserDetails.ProjectList != null &&
+            userData.UserDetails.ProjectList.length > 0) {
+            AppConstants.ProjectID = userData.UserDetails.ProjectList[0].ProjectMasterID;
+            this.selectedProjectID = AppConstants.ProjectID;
+          }
+
+        }
         AppConstants.IsUserLoggedIn = true;
         return true;
       }
       else {
         this.clearUserData();
-        return false;
       }
     } catch (e) {
       this.handleExceptions(e);
     }
     return false;
+  }
+
+  public getCompanyList(): any {
+    try {
+      let userDetails = localStorage.getItem(AppConstants.UserDetailsKeyword)
+      if (userDetails != null) {
+        let userData = JSON.parse(userDetails);
+        if (userData.UserDetails != null) {
+          let companiesList = userData.UserDetails.CompaniesList;
+          return companiesList;
+        }
+      }
+    } catch (e) {
+      this.handleExceptions(e);
+    }
+    return [];
+  }
+
+  public getProjectsList(): any {
+    try {
+      let userDetails = localStorage.getItem(AppConstants.UserDetailsKeyword)
+      if (userDetails != null) {
+        let userData = JSON.parse(userDetails);
+        if (userData.UserDetails != null) {
+          let companiesList = userData.UserDetails.ProjectList;
+          return companiesList;
+        }
+      }
+    } catch (e) {
+      this.handleExceptions(e);
+    }
+    return [];
   }
 
   //get logged in user data
